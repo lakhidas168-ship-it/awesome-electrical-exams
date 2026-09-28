@@ -157,7 +157,7 @@ def _clip(s, n=260):
 
 
 def _exists(p):
-    return Path(p).exists()
+    return bool(p and str(p).strip()) and Path(p).exists()
 
 
 def _exam_tags(raw, default="gate"):

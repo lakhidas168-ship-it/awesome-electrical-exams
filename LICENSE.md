@@ -1,18 +1,16 @@
 # License
 
-## Content
+## Text
 
-All written content in this folder (everything except the code listed below) is licensed under the
-**Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)**.
-Full text: <https://creativecommons.org/licenses/by-sa/4.0/legalcode>
-
-Attribution: "Awesome Indian Exams by Rajon Das and contributors", with a link to this repository.
+All written content in this repository (README, docs, resources) is licensed under the
+**Creative Commons Attribution 4.0 International License (CC BY 4.0)**.
+Full text: <https://creativecommons.org/licenses/by/4.0/legalcode>
 
 Links to third-party websites are not covered by this license. Their content belongs to its publishers.
 
 ## Code
 
-The code in `scripts/`, `ops/` (`*.py`, `*.sh`), `tools/` (`*.js`, `*.css`) and `tests/` is licensed under the MIT License:
+The code in `tools/` is licensed under the MIT License:
 
 ```
 MIT License

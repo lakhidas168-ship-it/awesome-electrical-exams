@@ -30,12 +30,16 @@ else:
     sys.modules["air10_exam"] = X
     spec.loader.exec_module(X)
 
-ESE_DB = Path(os.environ.get("AIR10_EXAM_Q_OFFICIAL_ESE", ""))
-GATE_DB = Path(os.environ.get("AIR10_EXAM_Q_OFFICIAL", ""))
+ESE_DB = os.environ.get("AIR10_EXAM_Q_OFFICIAL_ESE", "").strip()
+GATE_DB = os.environ.get("AIR10_EXAM_Q_OFFICIAL", "").strip()
+
+if not any(p and str(p).strip() and Path(str(p)).exists() for p, _, _ in X.QBANKS):
+    pytestmark = pytest.mark.skip(
+        "No question banks configured. Set AIR10_EXAM_Q_* env vars to run data-dependent tests.")
 
 
 def _con_ese():
-    if not ESE_DB or not ESE_DB.exists():
+    if not ESE_DB or not Path(ESE_DB).exists():
         pytest.skip(f"ESE official DB not found at {ESE_DB}. Set AIR10_EXAM_Q_OFFICIAL_ESE to run.")
     c = sqlite3.connect(f"file:{ESE_DB}?mode=ro", uri=True)
     c.row_factory = sqlite3.Row
@@ -43,7 +47,7 @@ def _con_ese():
 
 
 def _con_gate():
-    if not GATE_DB or not GATE_DB.exists():
+    if not GATE_DB or not Path(GATE_DB).exists():
         pytest.skip(f"GATE official DB not found at {GATE_DB}. Set AIR10_EXAM_Q_OFFICIAL to run.")
     c = sqlite3.connect(f"file:{GATE_DB}?mode=ro", uri=True)
     c.row_factory = sqlite3.Row

@@ -1,3 +1,4 @@
-ops/.notes.md
 __pycache__/
-tests_main/
+.pytest_cache/
+*.egg-info/
+.air10_exam_data/

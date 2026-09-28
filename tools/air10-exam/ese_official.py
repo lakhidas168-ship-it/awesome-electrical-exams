@@ -15,6 +15,9 @@ Answer Key rows), so answer_key='' for every row.
 import os
 from pathlib import Path
 
-EXTRA_QBANKS = [
-    (Path(os.environ.get("AIR10_EXAM_Q_OFFICIAL_ESE", "")), "official_sqlite", "official_pyq"),
-]
+_ESE_DIR = os.environ.get("AIR10_EXAM_Q_OFFICIAL_ESE", "").strip()
+EXTRA_QBANKS = (
+    [(Path(_ESE_DIR), "official_sqlite", "official_pyq")]
+    if _ESE_DIR and Path(_ESE_DIR).exists()
+    else []
+)

@@ -1,188 +1,152 @@
 # Awesome Electrical Exams ⚡
 
-> Free, evidence-gated preparation maps for **Electrical Engineering** competitive exams in India:
-> GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs.
-> No fees, no sign-up, no terms: every page links to the official source and says honestly how well it was checked.
+> A curated list of **official sources and free resources** for Electrical Engineering
+> competitive exams in India: GATE EE, UPSC ESE (EE), SSC JE (EE), RRB JE (EE),
+> State AE/JE (EE), PSU recruitment (EE).
+>
+> Every link below points to an official source and was opened and checked on
+> 2026-09-28 (see [docs/LINK_CHECK.md](docs/LINK_CHECK.md)).
+> Anything that is advice rather than fact is marked **(suggestion)**.
 
-**→ Start at [tools/air10-exam](tools/air10-exam) — open-source MCP for EE exam study** ·
-[Official GATE EE PYQs (2016–2026)](#official-gate-ee-previous-papers-20162026) ·
-[Official UPSC ESE PYQs (2017–2025)](#official-upsc-ese-previous-papers-20172025) ·
-[Free Official Courses (NPTEL)](#free-official-courses-nptel) ·
-[Open Tools](#open-tools) ·
-[Overlap Map](resources/overlap-map.md) ·
-[All Exams](resources/all-exams.md)
+- [Exams + official links](#-exams--official-links)
+- [Official previous papers](#-official-previous-papers)
+- [Free official courses (NPTEL)](#-free-official-courses-nptel)
+- [One-track study sequence (suggestion)](#️-one-track-study-sequence-suggestion)
+- [Open tools](#-open-tools)
+- [Related](#-related)
 
-Maintained by **Rajon Das** (an aspirant himself) with an open agent pipeline that works every hour:
-[how it works](ops/HIVE.md). Found a mistake? Open an issue with the official link.
-
----
-
-## 📋 Exams + Official Links
-
-| Exam | Official Body | Syllabus / Notification | Previous Papers |
-|------|---------------|-------------------------|-----------------|
-| **GATE EE** | IIT (rotating) | [gate2026.iitg.ac.in](https://gate2026.iitg.ac.in) | [Official QPs 2016–2026](#official-gate-ee-previous-papers-20162026) |
-| **UPSC ESE (EE)** | UPSC | [upsc.gov.in](https://upsc.gov.in) | [Official QPs 2017–2025](#official-upsc-ese-previous-papers-20172025) |
-| **SSC JE (EE)** | SSC | [ssc.gov.in](https://ssc.gov.in) | [ssc.gov.in/Paper-I](https://ssc.gov.in) / [Paper-II](https://ssc.gov.in) |
-| **RRB JE (EE)** | Railway Recruitment Boards | [indianrailways.gov.in](https://indianrailways.gov.in) | [rrbonline.in](https://rrbonline.in) |
-| **State AE/JE (EE)** | State PSCs / Commissions | Varies by state | Respective state portals |
-| **PSU EE (via GATE)** | Individual PSUs | PSU career pages | GATE score + PSU test/interview |
+Found a mistake? Open an issue with the official link.
 
 ---
 
-## 🗺️ One-Track Plan (GATE EE → ESE → SSC JE → State AE/JE)
+## 📋 Exams + official links
 
-A single study sequence that covers the **overlapping syllabus** efficiently. Start here, tick off, move on.
+| Exam | Official site | Per-exam page (hub) |
+|------|---------------|---------------------|
+| **GATE EE** | [gate2027.iitm.ac.in](https://gate2027.iitm.ac.in) (GATE 2027 organising institute) | [gate-ee.md](https://github.com/lakhidas168-ship-it/awesome-indian-exams/blob/main/awesome-indian-exams/exams/engineering/gate-ee.md) |
+| **UPSC ESE (EE)** | [upsc.gov.in](https://upsc.gov.in) | [upsc-ese-ee.md](https://github.com/lakhidas168-ship-it/awesome-indian-exams/blob/main/awesome-indian-exams/exams/engineering/upsc-ese-ee.md) |
+| **SSC JE (EE)** | [ssc.gov.in](https://ssc.gov.in) | [ssc-je-ee.md](https://github.com/lakhidas168-ship-it/awesome-indian-exams/blob/main/awesome-indian-exams/exams/engineering/ssc-je-ee.md) |
+| **RRB JE (EE)** | [rrbapply.gov.in](https://www.rrbapply.gov.in/) (application portal) · [indianrailways.gov.in](https://indianrailways.gov.in) | [rrb-je-ee.md](https://github.com/lakhidas168-ship-it/awesome-indian-exams/blob/main/awesome-indian-exams/exams/engineering/rrb-je-ee.md) |
+| **State AE/JE (EE)** | Varies by state — see the hub page | [state-ae-je.md](https://github.com/lakhidas168-ship-it/awesome-indian-exams/blob/main/awesome-indian-exams/exams/engineering/state-ae-je.md) |
+| **PSU EE (via GATE)** | Individual PSU career pages — see the hub page | [psu-ee.md](https://github.com/lakhidas168-ship-it/awesome-indian-exams/blob/main/awesome-indian-exams/exams/engineering/psu-ee.md) |
 
-| Phase | Target Exam | Core Subjects (Weightage Order) | Weeks | Checkpoint |
-|-------|-------------|----------------------------------|-------|------------|
-| 1 | GATE EE | Networks, Control Systems, Power Systems, Machines, Signals, Analog/Digital, EMFT, Measurements | 16–20 | GATE mock ≥55/100 |
-| 2 | ESE Paper-I (GS) | Current Affairs, General Science, Engineering Aptitude, Ethics | 6–8 | ESE GS mock ≥180/300 |
-| 3 | ESE Paper-II (EE) | Same as GATE + deeper derivations, design problems | 8–10 | ESE EE mock ≥200/300 |
-| 4 | SSC JE Paper-II (EE) | Core EE + objective speed practice | 4–6 | SSC JE mock ≥220/300 |
-| 5 | State AE/JE | State-specific GK + EE core (use SSC JE as proxy) | 3–4 | State mock qualifying |
-
-> **Provenance**: Weightages derived from `air10-exam exam_radar` across 6 exams (GATE, ESE, SSC JE, RRB JE, State AE/JE, PSU). Crosswalk = topics paying in ≥3 exams. See [data/exam_radar.json](data/exam_radar.json).
-
----
-
-## 📄 Official Previous Papers
-
-### GATE EE (2016–2026) — Official IIT PDFs Only
-
-| Year | Official PDF Link | Provenance |
-|------|-------------------|------------|
-| 2026 | https://gate2026.iitg.ac.in/doc/download/2026/QPs/EE.pdf | `official_pyq` |
-| 2025 | https://gate2025.iitr.ac.in/doc/2025/2025_QP/EE.pdf | `official_pyq` |
-| 2024 | https://gate2027.iitm.ac.in/static/doc/download/2024/EE24S8.pdf | `official_pyq` |
-| 2023 | https://gate2027.iitm.ac.in/static/doc/download/2023/ee_2023.pdf | `official_pyq` |
-| 2022 | https://gate2027.iitm.ac.in/static/doc/download/2022/ee_2022.pdf | `official_pyq` |
-| 2021 | https://gate2027.iitm.ac.in/static/doc/download/2021/ee_2021.pdf | `official_pyq` |
-| 2020 | https://gate2026.iitg.ac.in/doc/download/2020/ee_2020.pdf | `official_pyq` |
-| 2019 | https://gate2026.iitg.ac.in/doc/download/2019/ee_2019.pdf | `official_pyq` |
-| 2018 | https://drive.google.com/file/d/15_ICpSsDqPOvTxa8irh-13zRM9paY-SY/view | `official_pyq` |
-| 2017 | https://drive.google.com/file/d/15_ICpSsDqPOvTxa8irh-13zRM9paY-SY/view | `official_pyq` |
-| 2016 | https://drive.google.com/file/d/15_ICpSsDqPOvTxa8irh-13zRM9paY-SY/view | `official_pyq` |
-
-> **Source**: Extracted from `~/AIR10_LIBRARY/official_pyq/official_pyq.sqlite` (845 verified questions). Parser script: [scripts/official_pyq.py](scripts/official_pyq.py). License: CC BY 4.0 for text, MIT for code.
-
-### UPSC ESE EE (2017–2025) — Official upsc.gov.in Links Only
-
-| Year | Paper-I (GS) | Paper-II (EE) | Provenance |
-|------|--------------|---------------|------------|
-| 2025 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2024 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2023 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2022 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2021 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2020 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2019 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2018 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-| 2017 | [upsc.gov.in](https://upsc.gov.in) | [upsc.gov.in](https://upsc.gov.in) | `official_pyq` |
-
-> **Note**: Direct PDF URLs on upsc.gov.in change per year. Use the search on upsc.gov.in → "Previous Question Papers" → "Engineering Services". OCR pipeline code published in [scripts/ese_ocr.py](scripts/ese_ocr.py); output marked `provenance=official_pyq` but **unverified until human-verified**. See [data/ese_ee_pyq.jsonl](data/ese_ee_pyq.jsonl).
+Detailed per-exam pages (pattern, syllabus, sources) live in the hub repo
+[awesome-indian-exams](https://github.com/lakhidas168-ship-it/awesome-indian-exams);
+this repo keeps only EE-specific resources and the open-source study tool.
 
 ---
 
-## 🎓 Free Official Courses (NPTEL)
+## 📄 Official previous papers
 
-| Course | Institute | Link | Covers |
-|--------|-----------|------|--------|
-| Basic Electrical Circuits | IIT Kharagpur | [nptel.ac.in/courses/108105159](https://nptel.ac.in/courses/108105159) | Networks, Circuit Theorems |
-| Analog Circuits | IIT Bombay | [nptel.ac.in/courses/108102096](https://nptel.ac.in/courses/108102096) | Analog Electronics |
-| Digital Circuits | IIT Kharagpur | [nptel.ac.in/courses/108105132](https://nptel.ac.in/courses/108105132) | Digital Electronics |
-| Control Engineering | IIT Bombay | [nptel.ac.in/courses/108106098](https://nptel.ac.in/courses/108106098) | Control Systems |
-| Power System Analysis | IIT Kharagpur | [nptel.ac.in/courses/108105067](https://nptel.ac.in/courses/108105067) | Power Systems |
-| Electrical Machines | IIT Delhi | [nptel.ac.in/courses/108105017](https://nptel.ac.in/courses/108105017) | Machines |
-| Electromagnetic Fields | IIT Madras | [nptel.ac.in/courses/108104087](https://nptel.ac.in/courses/108104087) | EMFT |
-| Signals and Systems | IIT Bombay | [nptel.ac.in/courses/108104100](https://nptel.ac.in/courses/108104100) | Signals |
-| Power Electronics | IIT Bombay | [nptel.ac.in/courses/108102146](https://nptel.ac.in/courses/108102146) | Power Electronics |
-| Measurements & Instrumentation | IIT Roorkee | [nptel.ac.in/courses/108105064](https://nptel.ac.in/courses/108105064) | Measurements |
+Download papers only from the organisers' own sites. Exact PDF URLs change every
+year, so start from the home page and follow the site's question-paper archive:
 
-> All NPTEL courses are free to audit. Certificates require exam registration (nominal fee). See [resources/nptel-catalog.md](resources/nptel-catalog.md) for full mapping to GATE/ESE syllabus.
+- **GATE EE** — recent organising institutes (each site hosts its year's papers):
+  [GATE 2027 (IIT Madras)](https://gate2027.iitm.ac.in),
+  [GATE 2026 (IIT Guwahati)](https://gate2026.iitg.ac.in),
+  [GATE 2025 (IIT Roorkee)](https://gate2025.iitr.ac.in).
+  Older papers are archived on the respective organising institute's GATE site.
+- **UPSC ESE** — [upsc.gov.in](https://upsc.gov.in) → "Previous Question Papers" →
+  "Engineering Services Examination".
+- **SSC JE** — [ssc.gov.in](https://ssc.gov.in) → candidate / examination archives.
+- **RRB JE** — [rrbapply.gov.in](https://www.rrbapply.gov.in/) and the regional
+  Railway Recruitment Board websites linked from
+  [indianrailways.gov.in](https://indianrailways.gov.in).
 
----
-
-## 🔧 Open Tools
-
-| Tool | Description | Repo / Link | License |
-|------|-------------|-------------|---------|
-| **air10-exam** | One MCP for all EE exams: search, next-topic, practice (FSRS), exact solvers, radar, teacher triangulation, NotebookLM routing | [tools/air10-exam](tools/air10-exam) | MIT (code) / CC BY 4.0 (text) |
-| **air10-ee-solvers** | 16 standalone EE solvers: netlist, control, logic, twoport, tf, eigen, laplace_inv, rlc, vr, phasor, linsolve, three_phase, swing, eac, powerflow, per_unit | [tools/air10-ee-solvers](tools/air10-ee-solvers) | MIT |
-| **air10-library** | Taxonomy builder: 8-layer syllabus tree, official PYQ harvest, lecture index, NotebookLM catalog | [tools/air10-library](tools/air10-library) | MIT |
-| **truthgate** | CI gate: hallucination/contradiction checker for generated content | [ops/truthgate](ops/truthgate) | MIT |
-| **sovereign-study-commons-india** | Reference RAG: SQLite/Parquet study lake, SSC_RAG, verifier | [tools/sovereign-study-commons-india](tools/sovereign-study-commons-india) | MIT |
-
-> **See also**: [awesome-indian-exams](https://github.com/lakhidas168-ship-it/awesome-indian-exams) for 118 exams (JEE, NEET, SSC, UPSC CSE, IBPS, CUET, CLAT, CAT, NET, etc.) with 33 shared modules and overlap maps.
+See also [resources/gate-ee-papers.md](resources/gate-ee-papers.md) and
+[resources/ese-ee-papers.md](resources/ese-ee-papers.md).
 
 ---
 
-## 🛡️ Guardrails (Enforced on Every Commit)
+## 🎓 Free official courses (NPTEL)
 
-- **gitleaks**: No secrets, API keys, tokens, or personal paths in repo
-- **PII deny-list**: No emails, phone numbers, Aadhaar, PAN in committed files
-- **Path guard**: No `/Users/rajondas`, `/home/rajondas`, `~/.local`, `lakhidas168@gmail.com` (except documented env var names like `AIR10_LIBRARY_PATH`)
-- **Provenance honesty**: Every question/fact carries `provenance` field (`official_pyq`, `curated_unverified`, `pyq_collected`, `teacher_derived`). No fake data.
-- **No coaching material**: No lecture transcripts, topper copies, or proprietary content. Links only.
-- **GitHub ≤1 push/hour/repo** via `~/.hive/publish-github.sh` (hourly gated). Never use git as a message bus.
+Courses on [nptel.ac.in](https://nptel.ac.in) are free to audit; check each course
+page for certification details.
+
+| Course | Covers |
+|--------|--------|
+| [Basic Electrical Circuits](https://nptel.ac.in/courses/108105159) (IIT Kharagpur) | Networks, circuit theorems |
+| [Analog Circuits](https://nptel.ac.in/courses/108102096) (IIT Bombay) | Analog electronics |
+| [Digital Circuits](https://nptel.ac.in/courses/108105132) (IIT Kharagpur) | Digital electronics |
+| [Control Engineering](https://nptel.ac.in/courses/108106098) (IIT Bombay) | Control systems |
+| [Power System Analysis](https://nptel.ac.in/courses/108105067) (IIT Kharagpur) | Power systems |
+| [Electrical Machines](https://nptel.ac.in/courses/108105017) (IIT Delhi) | Machines |
+| [Electromagnetic Fields](https://nptel.ac.in/courses/108104087) (IIT Madras) | EMFT |
+| [Signals and Systems](https://nptel.ac.in/courses/108104100) (IIT Bombay) | Signals and systems |
+| [Power Electronics](https://nptel.ac.in/courses/108102146) (IIT Bombay) | Power electronics |
+| [Measurements & Instrumentation](https://nptel.ac.in/courses/108105064) (IIT Roorkee) | Measurements |
+
+See [resources/nptel-courses.md](resources/nptel-courses.md).
 
 ---
 
-## 📦 Quick Start (air10-exam)
+## 🗺️ One-track study sequence (suggestion)
+
+**(Suggestion — not a rule, not based on cut-offs.)** The EE syllabi of these
+exams overlap heavily, so one possible order is:
+
+1. **GATE EE core** — Networks, Control Systems, Power Systems, Machines,
+   Signals & Systems, Analog/Digital Electronics, EMFT, Measurements.
+2. **ESE Paper-I (General Studies)** — current affairs, general science,
+   engineering aptitude, ethics.
+3. **ESE technical papers** — GATE core plus deeper derivations and design problems.
+4. **SSC JE / State AE-JE** — EE core with objective speed practice; state GK as
+   per the state notification.
+
+Details: [resources/one-track-plan.md](resources/one-track-plan.md).
+
+---
+
+## 🔧 Open tools
+
+| Tool | Description | License |
+|------|-------------|---------|
+| [tools/air10-exam](tools/air10-exam) | MCP server + CLI for EE exam study: question search, what-to-study-next, practice with auto-check, exact EE solvers, exam pattern radar. Ships code only — you build your own index from public sources. | MIT |
 
 ```bash
-# Clone and enter
-git clone https://github.com/lakhidas168-ship-it/awesome-electrical-exams
+# Enter the tool directory
 cd awesome-electrical-exams/tools/air10-exam
 
 # Install (requires Python 3.11+)
 pip install -e .[dev]
 
-# Build your own index from public data (see BUILD_INDEX.md)
-export AIR10_LIBRARY_PATH=/path/to/your/public/data
+# Point the tool at your own public data (see tools/air10-exam/README.md)
+export AIR10_EXAM_HOME=~/.air10_exam_data
 air10-exam build
 
-# Use the MCP server
-air10-exam serve
-
-# CLI examples
-air10-exam search "power systems stability" --exam gate
-air10-exam next --exam gate --days-left 90
-air10-exam practice --exam gate --subject "Power Systems" --provenance curated_unverified
+# CLI examples (real commands — see `air10-exam` with no args for help)
+air10-exam search "power systems stability"
+air10-exam next gate 90
 air10-exam solve tf "100/(s*(s+10))"
-air10-exam radar --exam all
+air10-exam radar all
+air10-exam selftest
+
+# Run as an MCP server
+air10-exam serve
 ```
 
-See [tools/air10-exam/README.md](tools/air10-exam/README.md) for full documentation, environment variables, and how students build their own index from public sources.
+---
+
+## 🔗 Related
+
+- [awesome-indian-exams](https://github.com/lakhidas168-ship-it/awesome-indian-exams) —
+  the hub repo with per-exam pages for all Indian competitive exams (the EE pages
+  are linked in the table above).
 
 ---
 
 ## 📜 Licenses
 
-| Content Type | License |
+| Content type | License |
 |--------------|---------|
-| **Code** (Python, shell, configs, MCP servers) | [MIT](LICENSE.md) |
-| **Text** (README, docs, exam maps, radar data, syllabi extracts) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| **Data** (question banks, lecture index, PYQ extracts) | CC BY 4.0 — provenance field mandatory |
-
----
+| Code (`tools/`) | [MIT](LICENSE.md) |
+| Text (README, docs, resources) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). In short:
-1. Fork → branch → PR with tests
-2. All gates must pass: `ops/doctor.sh`, `gitleaks`, `pytest`
-3. Only real, sourced content. Link to official sources.
-4. Unverified stays marked unverified.
+See [CONTRIBUTING.md](CONTRIBUTING.md). In short: only real, sourced content —
+link to official sources, never copy coaching material, never invent numbers.
 
 ---
 
-## 🔗 Related Repos
-
-- [awesome-indian-exams](https://github.com/lakhidas168-ship-it/awesome-indian-exams) — 118 exams, 33 shared modules, overlap maps
-- [awesome-upsc-cse](https://github.com/lakhidas168-ship-it/awesome-upsc-cse) — UPSC Civil Services focused
-- [sovereign-study-commons-india](https://github.com/lakhidas168-ship-it/sovereign-study-commons-india) — Reference RAG implementation
-
----
-
-*Last updated: 2026-09-28 | Maintained by Rajon Das | [Agent pipeline](ops/HIVE.md) runs hourly*
+*Maintained by Rajon Das.*

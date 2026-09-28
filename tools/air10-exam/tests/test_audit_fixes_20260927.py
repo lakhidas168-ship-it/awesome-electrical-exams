@@ -6,6 +6,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import pytest
 from pathlib import Path
 
 TMP = os.environ.get("AIR10_EXAM_HOME") or tempfile.mkdtemp(prefix="air10exam_audit_")
@@ -15,6 +16,10 @@ sys.argv = ["air10_exam.py", "test"]          # CLI mode: no MCP import
 spec = importlib.util.spec_from_file_location("air10_exam_audit", SRC)
 X = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(X)
+
+if not any(p and str(p).strip() and Path(str(p)).exists() for p, _, _ in X.QBANKS):
+    pytestmark = pytest.mark.skip(
+        "No question banks configured. Set AIR10_EXAM_Q_* env vars to run data-dependent tests.")
 
 YTB = re.compile(r"^https://youtu\.be/[A-Za-z0-9_-]{11}(\?t=\d+)?$")
 

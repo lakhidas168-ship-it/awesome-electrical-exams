@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "One MCP for all Electrical Engineering competitive exams in India (GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs)"
 readme = "README.md"
 license = {text = "MIT"}
-authors = [{name = "Rajon Das", email = "lakhidas168@gmail.com"}]
+authors = [{name = "Rajon Das"}]
 requires-python = ">=3.11"
 dependencies = [
     "mcp>=1.0.0",

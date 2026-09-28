@@ -1,0 +1,14 @@
+# The Mac schedule is installed and kept up to date by ops/mac-bootstrap.sh (a managed block in your crontab).
+# Run it again any time; your other crontab lines are kept, and a backup goes to ~/.hive/crontab.backup.*.
+# To change which agent runs, edit ~/.hive/agents.env (HIVE_CMD_HERMES, HIVE_CMD_OPENCODE, HIVE_CMD_GEMINI,
+# HIVE_CMD_ANTIGRAVITY, HIVE_CMD_JEVX), not the crontab. The installed block looks like this:
+#
+# >>> hive >>> managed by awesome-indian-exams/ops/mac-bootstrap.sh (edit ~/.hive/agents.env instead)
+# 5 * * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh hermes
+# 5 * * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh opencode
+# 7 * * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh hermes gemini
+# 9 * * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh hermes antigravity
+# 40 * * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh jevx
+# 15 */6 * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh harvest
+# 50 * * * * /bin/bash <repo>/awesome-indian-exams/ops/hive-cron.sh doctor
+# <<< hive <<<

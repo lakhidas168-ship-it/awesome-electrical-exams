@@ -1,0 +1,69 @@
+# The public website for the list, built by .github/workflows/pages.yml from the same markdown (no copies).
+site_name: Awesome Indian Exams
+site_description: Free, evidence-gated preparation maps for India's competitive exams
+site_url: https://lakhidas168-ship-it.github.io/awesome-indian-exams/
+repo_url: https://github.com/lakhidas168-ship-it/awesome-indian-exams
+edit_uri: edit/main/awesome-indian-exams/
+docs_dir: awesome-indian-exams
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  font: false   # system fonts: no requests to font servers, faster on slow connections
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.action.edit
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Light mode
+
+plugins:
+  - search
+
+# The study tools (tools/): data/data.js is generated at build time by scripts/export_json.py --js.
+extra_javascript:
+  - data/data.js
+  - tools/tools.js
+extra_css:
+  - tools/tools.css
+
+markdown_extensions:
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+
+# Only the list itself is published; the hive's machinery stays in the repository.
+exclude_docs: |
+  scripts/
+  tests/
+  tests_main/
+  ops/*
+  !ops/HIVE.md
+  docs/MAC-HANDOFF.md
+  .agents/
+  opencode.json
+
+validation:
+  omitted_files: info
+  absolute_links: info
+  unrecognized_links: info
+  links:
+    not_found: warn
+    anchors: info

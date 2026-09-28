@@ -1,0 +1,33 @@
+{
+  "_note": "Stem errata overrides for the air10-exam question index (audit 2026-09-27). Applied at index-build time only; official_pyq.sqlite and pyq.sqlite stay READ-ONLY. Each entry verified against the official PDF in ~/AIR10_LIBRARY/official_pyq/gate_ee (see 'verified'). Actions: replace a substring of the stem (stem_from->stem_to, stem_from must occur at least once (all occurrences replaced)), replace the whole stem (stem), or mark the row text-unanswerable (unusable: it stays searchable but is never served by practice/next).",
+  "GATE2018_EE_Q61": {
+    "action": "fix_stem",
+    "stem_from": "3 kV / 3 kV (∆/Y)",
+    "stem_to": "3 kV / √3 kV (∆/Y)",
+    "verified": "GATE2018_EE_QP.pdf p16 text layer shows '3 kV / 3 kV' (the sqrt glyph is lost in extraction). Physics: with sqrt3, eta=97.36% inside the official key range 97.20-97.55; without it eta=97.74% outside the range. Key kept as the official range.",
+    "answer": "97.20 to 97.55"
+  },
+  "GATE2023_EE_Q53": {
+    "action": "fix_stem",
+    "stem_from": "",
+    "stem_to": "π",
+    "verified": "GATE2023_EE_QP.pdf text layer contains U+F070 (Symbol-font pi) in 'j100<U+F070>x0.16' and 'j100<U+F070>x0.36'. Physics: with pi, L_ab=2195.7mH inside the official key range 2150-2250; without pi 2086.6mH outside. Key kept as the official range.",
+    "answer": "2150 to 2250"
+  },
+  "GATE2020_EE_Q31": {
+    "action": "fix_stem",
+    "stem": "A single-phase, 4 kVA, 200 V/100 V, 50 Hz transformer with laminated CRGO steel core has rated no-load loss of 450 W. When the high-voltage winding is excited with 160 V, 40 Hz sinusoidal ac supply, the no-load losses are found to be 320 W. When the high-voltage winding of the same transformer is supplied from a 100 V, 25 Hz sinusoidal ac source, the no-load losses will be _________W (rounded off to 2 decimal places).",
+    "verified": "GATE2020_EE_QP.pdf is image-only (no text layer for Q31), so the indexed stem is OCR-garbled ('sinLTle-pha.se', 'CRCJO stLcI', 'H7' for Hz). Wording restored from the coaching duplicate of the same paper; every number cross-checked by loss-separation computation (Kh=4, Ke=0.1 -> 162.5W) inside the official key range 162.41-162.59. Key kept as the official range.",
+    "answer": "162.41 to 162.59"
+  },
+  "PYQ:GATE_2020_EE_963ec52cd3138086": {
+    "action": "unusable",
+    "reason": "NAT wrongly keyed 'A' (option letter on a numeric-answer question); duplicate of official GATE2020_EE_Q31 which carries the official key range.",
+    "verified": "pyq.sqlite row: qtype NAT, answer 'A', answer_source 'official answer key'. Never served; kept searchable."
+  },
+  "GATE2026_EE_Q41": {
+    "action": "unusable",
+    "reason": "Y-bus matrix stem/options unreadable in text extraction (options differ only in matrix signs/layout); open GATE2026_EE_QP.pdf pp.37-38.",
+    "verified": "GATE2026_EE_QP.pdf pp.37-38 text layer confirms matrix equations. Never served; kept searchable."
+  }
+}

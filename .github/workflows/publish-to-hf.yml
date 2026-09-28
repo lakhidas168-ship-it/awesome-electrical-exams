@@ -1,0 +1,25 @@
+name: Publish to Hugging Face
+
+on:
+  workflow_dispatch:
+    inputs:
+      model_name:
+        description: 'Model name to publish'
+        required: true
+        default: 'awesome-indian-exams-ai'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "Publishing model ${{ github.event.inputs.model_name }} to Hugging Face..."
+          # Placeholder for actual publishing logic (e.g., huggingface-cli)
+          # The actual implementation will depend on where the artifacts are generated.
+          # For now, this confirms the workflow structure.

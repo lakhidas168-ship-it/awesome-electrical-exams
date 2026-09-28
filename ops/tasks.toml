@@ -1,0 +1,2063 @@
+# Hive backlog.
+# Single writer: the JEVX lane. Worker lanes (hermes, opencode) never edit this file.
+# The "human" lane is the owner's checklist: agents never pick those tasks.
+#
+# priority: 1 = most urgent.  deps: ids that must be done first.  blocked = true parks a task.
+# focus: "core" (engineering track, ~80% of runs) or "india" (all other exams, ~20%); see ops/hive.toml.
+# DONE    = ops/done/<id>.md exists on main (a receipt that landed).
+# CLAIMED = refs/heads/claim/<id> or a branch agent/<lane>/<id> exists on the remote.
+#
+# where: "any" (default), "mac" (needs the owner's machine: local files or local tools) or "cloud".
+# Id ranges: H- owner · T-0xx hermes core · T-1xx opencode · T-2xx hermes exam pages · T-4xx hermes modules ·
+#            T-5xx harvest of the owner's earlier local work (where = "mac", added by JEVX from ops/harvest.py tasks).
+
+[[task]]
+id = "H-004"
+lane = "human"
+priority = 1
+title = "Mac: fix what the doctor reports: cron Full Disk Access, keep awake, sign in to each agent (docs/OWNER-CLICKS.md section A)"
+accept = ["`python3 awesome-indian-exams/ops/doctor.py --mac` shows no FAIL lines"]
+
+[[task]]
+id = "H-005"
+lane = "human"
+priority = 2
+title = "Connect the Google accounts that hold earlier exam work via Drive for desktop or Takeout into ~/Hive-Inbox (docs/OWNER-CLICKS.md section B)"
+accept = ["`python3 awesome-indian-exams/ops/harvest.py summary` lists items from those accounts"]
+
+[[task]]
+id = "T-001"
+lane = "opencode"
+priority = 1
+title = "Verify the GATE EE page against the official GATE 2027 information brochure"
+accept = [
+  "every number under 'Exam pattern' and 'At a glance' matches the brochure; brochure URL listed under Official sources",
+  "syllabus section matches the official EE syllabus PDF (paraphrase allowed, topics must match)",
+  "frontmatter verification = official and last_verified = the run date, only if the official documents were opened this run",
+]
+
+[[task]]
+id = "T-002"
+lane = "opencode"
+priority = 1
+title = "Verify the UPSC ESE EE page against the ESE 2027 notification on upsc.gov.in"
+accept = [
+  "pattern, age limit and stage marks match the notification; notification URL listed under Official sources",
+  "frontmatter verification = official only if the notification PDF was opened this run",
+]
+
+[[task]]
+id = "T-003"
+lane = "opencode"
+priority = 2
+title = "Verify the SSC JE EE page against the latest SSC JE notice on ssc.gov.in"
+accept = [
+  "Paper I/II pattern and negative marking match the notice; notice URL listed",
+  "verification updated honestly",
+]
+
+[[task]]
+id = "T-004"
+lane = "opencode"
+priority = 2
+title = "Verify the RRB JE page against the latest CEN (Junior Engineer) on rrbapply.gov.in or a regional RRB site"
+accept = [
+  "CBT-1/CBT-2 sections, time and negative marking match the CEN; CEN URL listed",
+  "verification updated honestly",
+]
+
+[[task]]
+id = "T-005"
+lane = "hermes"
+priority = 2
+title = "Verify the UPSC CSE page (pattern + Electrical Engineering optional syllabus) against the CSE notification"
+accept = [
+  "marks per paper and the EE optional topic list match the notification; URL listed",
+  "verification updated honestly",
+]
+
+[[task]]
+id = "T-006"
+lane = "hermes"
+priority = 2
+title = "State AE/JE tracker: confirm every commission/utility domain and add the latest EE AE/JE advertisement per state (Assam first)"
+accept = [
+  "every link in the tracker opens on an official domain; dead ones removed",
+  "Assam row lists the latest APSC / APDCL / AEGCL / APGCL EE advertisement with date and URL, or states none open",
+]
+
+[[task]]
+id = "T-007"
+lane = "hermes"
+priority = 3
+title = "PSU tracker: record each PSU's most recent EE recruitment channel (GATE year / own exam) with the official advertisement link"
+accept = [
+  "each row has channel + advertisement URL + date, or 'no EE recruitment found since <year>'",
+]
+
+[[task]]
+id = "T-008"
+lane = "hermes"
+priority = 3
+deps = ["T-001"]
+title = "GATE EE subject-wise marks for the last 5 official papers → resources/gate-ee-weightage.md"
+accept = [
+  "table of marks per subject per year, counted from the official question papers (URLs listed per year)",
+  "method section says how each question was mapped to a subject; totals per year add up to 100",
+]
+
+[[task]]
+id = "T-009"
+lane = "hermes"
+priority = 3
+deps = ["T-002"]
+title = "ESE EE Prelims topic map from official papers (Paper I + Paper II, last 5 years) → resources/ese-ee-topic-map.md"
+accept = [
+  "question counts per topic per year from upsc.gov.in papers, URLs listed; counts per paper add up",
+]
+
+[[task]]
+id = "T-010"
+lane = "hermes"
+priority = 4
+title = "Publish the EE concept prerequisite map from the Sovereign Learning OS graph → resources/prerequisite-map.md"
+accept = [
+  "Mermaid graph of EE concepts and prerequisite edges, exported from the local graph",
+  "no transcript text or third-party lecture content included, only concept names and edges",
+]
+
+[[task]]
+id = "T-011"
+lane = "hermes"
+priority = 4
+title = "Verify the GATE EC and GATE IN pages (exams/engineering/gate-ec.md, gate-in.md) against the official GATE 2027 brochure and syllabus"
+accept = [
+  "pattern and syllabus sections match the official brochure and syllabus PDF; their URLs are under Official sources",
+  "verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts jada10656, rajon369963das) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://gate2027.iitm.ac.in/notifications; notification_url=https://gate2027ib.iitm.ac.in/GATE2027-IB.pdf; official_site=https://gate2027.iitm.ac.in; official_site=https://gate2027.iitm.ac.in/; pattern_url=https://gate2027.iitm.ac.in/question_paper_pattern; syllabus_url=https://gate2027.iitm.ac.in/exam_papers_and_syllabus; syllabus_url=https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/EC_GATE2027_Syllabus.pdf"]
+
+[[task]]
+id = "T-101"
+lane = "opencode"
+priority = 2
+title = "Original practice questions: questions/ JSON format + validator rule + 3 sample EE questions"
+accept = [
+  "schema fields: id, exams, subject, question, options, answer, solution, author, license, source='original'",
+  "scripts/validate.py rejects a question without an answer, solution or author (unit test proves it)",
+]
+
+[[task]]
+id = "T-102"
+lane = "opencode"
+priority = 3
+title = "Staleness report: validate.py --suggest-tasks prints ready-to-paste tasks.toml entries for stale or non-official pages"
+accept = [
+  "unit test covers a stale page and a secondary page",
+  "output parses as TOML",
+]
+
+[[task]]
+id = "T-103"
+lane = "opencode"
+priority = 3
+title = "Formula sheets: formula-sheets/<subject>.md format + validator check that $$ math blocks are balanced"
+accept = [
+  "one sample sheet (Electric Circuits) passes",
+  "unit test proves an unbalanced block fails",
+]
+
+[[task]]
+id = "T-012"
+lane = "hermes"
+priority = 4
+title = "Verify the GATE CS page (exams/engineering/gate-cs.md) against the official GATE 2027 brochure and syllabus"
+accept = [
+  "pattern and syllabus sections match the official brochure and syllabus PDF; their URLs are under Official sources",
+  "verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts rams968844) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://gate2027ib.iitm.ac.in/GATE2027-IB.pdf; official_site=https://gate2027.iitm.ac.in/; pattern_url=https://gate2027.iitm.ac.in/question_paper_pattern; syllabus_url=https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/CS_GATE2027_Syllabus.pdf"]
+
+[[task]]
+id = "T-013"
+lane = "hermes"
+priority = 4
+title = "Verify the GATE DA page (exams/engineering/gate-da.md) against the official GATE 2027 brochure and syllabus"
+accept = [
+  "pattern and syllabus sections match the official brochure and syllabus PDF; their URLs are under Official sources",
+  "verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts rams968844) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://gate2027ib.iitm.ac.in/GATE2027-IB.pdf; official_site=https://gate2027.iitm.ac.in/; pattern_url=https://gate2027.iitm.ac.in/question_paper_pattern; syllabus_url=https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/DA_GATE2027_Syllabus.pdf"]
+
+[[task]]
+id = "T-014"
+lane = "hermes"
+priority = 4
+title = "Verify the GATE ME page (exams/engineering/gate-me.md) against the official GATE 2027 brochure and syllabus"
+accept = [
+  "pattern and syllabus sections match the official brochure and syllabus PDF; their URLs are under Official sources",
+  "verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-015"
+lane = "hermes"
+priority = 4
+title = "Verify the GATE CE page (exams/engineering/gate-ce.md) against the official GATE 2027 brochure and syllabus"
+accept = [
+  "pattern and syllabus sections match the official brochure and syllabus PDF; their URLs are under Official sources",
+  "verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts rams968844) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://gate2027ib.iitm.ac.in/GATE2027-IB.pdf; official_site=https://gate2027.iitm.ac.in/; pattern_url=https://gate2027.iitm.ac.in/question_paper_pattern; syllabus_url=https://gate2027.iitm.ac.in/static/doc/GATE2027_Syllabus/CE_GATE2027_Syllabus.pdf"]
+
+[[task]]
+id = "T-016"
+lane = "hermes"
+priority = 3
+title = "Refresh docs/FREE-COMPUTE.md: check each free tier and credit programme on its official page, remove dead ones, add new ones"
+accept = [
+  "every entry links the provider's official page and says what is free and its limit",
+  "entries that could not be confirmed are marked so",
+]
+
+[[task]]
+id = "T-201"
+lane = "hermes"
+focus = "india"
+priority = 1
+title = "Verify the NEET UG page against its current official notification"
+accept = [
+  "every number under 'At a glance' and 'Exam pattern' matches the official notification; its URL is under Official sources",
+  "verification = official only if the official notification was fetched this run",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://neet.nta.nic.in/documents/page/4/; official_site=https://neet.nta.nic.in; pattern_url=https://neet.nta.nic.in/document/information-bulletin-english/; syllabus_url=https://neet.nta.nic.in/document/information-bulletin-english/"]
+
+[[task]]
+id = "T-202"
+lane = "opencode"
+focus = "india"
+priority = 1
+title = "Verify the SSC CGL (Combined Graduate Level) page against its current official notification"
+accept = [
+  "every number under 'At a glance' and 'Exam pattern' matches the official notification; its URL is under Official sources",
+  "verification = official only if the official notification was fetched this run",
+]
+
+[[task]]
+id = "T-203"
+lane = "hermes"
+focus = "india"
+priority = 1
+title = "Verify the IBPS PO page against its current official notification"
+accept = [
+  "every number under 'At a glance' and 'Exam pattern' matches the official notification; its URL is under Official sources",
+  "verification = official only if the official notification was fetched this run",
+]
+hints = ["Spark (Google accounts monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf; official_site=https://www.ibps.in; pattern_url=https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf; syllabus_url=https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"]
+
+[[task]]
+id = "T-204"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the JEE Main page (exams/engineering-entrance/jee-main.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-205"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the JEE Advanced page (exams/engineering-entrance/jee-advanced.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-206"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the BITSAT page (exams/engineering-entrance/bitsat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-207"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the MHT CET page (exams/engineering-entrance/mht-cet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cetcell.mahacet.org/cms-download/information-brochure-for-mht-cet-pcmpcb-group-a-y-2026-27/; official_site=https://cetcell.mahacet.org/; pattern_url=https://cetcell.mahacet.org/syllabus-and-marking-scheme/; syllabus_url=https://cetcell.mahacet.org/syllabus-and-marking-scheme/"]
+
+[[task]]
+id = "T-208"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the WBJEE page (exams/engineering-entrance/wbjee.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-209"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the Karnataka CET (KCET) page (exams/engineering-entrance/kcet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: official_site=https://kea.kar.nic.in"]
+
+[[task]]
+id = "T-210"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the KEAM page (exams/engineering-entrance/keam.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cee.kerala.gov.in/keam2026/noti_view/3/Upload1; official_site=https://cee.kerala.gov.in; pattern_url=https://cee.kerala.gov.in/keam2026/pdf/Prospectus.pdf; syllabus_url=https://cee.kerala.gov.in/keam2026/pdf/Prospectus.pdf"]
+
+[[task]]
+id = "T-211"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the AP EAPCET page (exams/engineering-entrance/ap-eapcet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cets.apsche.ap.gov.in/EAPCET/EapcetHomepages/ImportantDates.aspx; official_site=https://cets.apsche.ap.gov.in/EAPCET/; pattern_url=https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf; syllabus_url=https://cets.apsche.ap.gov.in/EAPCET/PDF/APEAPCET2026_Instruction_Booklet_Engineering_V4.pdf"]
+
+[[task]]
+id = "T-212"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the TG (Telangana) EAPCET page (exams/engineering-entrance/ts-eapcet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-213"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the COMEDK UGET page (exams/engineering-entrance/comedk-uget.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-214"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the VITEEE page (exams/engineering-entrance/viteee.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-215"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the NEET PG page (exams/medical/neet-pg.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://ftp.natboard.edu.in/viewNotice.php?NBE=d2JKTFM0d0Y1SS9BK1kzRWZFYXZ1UT09; notification_url=https://nbe.edu.in/IB/IB%20NEET-PG%202025.pdf; official_site=https://nbe.edu.in; pattern_url=https://nbe.edu.in/IB/IB%20NEET-PG%202025.pdf; pattern_url=https://nbe.edu.in/IB/Information%20Bulletin%20NEET-PG%202022%20-%20Final%20Version%20for%20NBEMS%20Website.pdf; syllabus_url=https://nbe.edu.in/IB/IB%20NEET-PG%202025.pdf; syllabus_url=https://nbe.edu.in/IB/Information%20Bulletin%20NEET-PG%202022%20-%20Final%20Version%20for%20NBEMS%20Website.pdf"]
+
+[[task]]
+id = "T-216"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the INI-CET page (exams/medical/ini-cet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.aiimsexams.ac.in/landingpage/courses/advertisement/68dbf0b6d6fe8f55c65468aa; official_site=https://www.aiimsexams.ac.in/; pattern_url=https://www.aiimsexams.ac.in/prospectus/6aaab710c7a01ed08da4242d; syllabus_url=https://www.aiimsexams.ac.in/prospectus/6aaab710c7a01ed08da4242d"]
+
+[[task]]
+id = "T-217"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the FMGE (Foreign Medical Graduate Examination) page (exams/medical/fmge.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://nbe.edu.in/IB/FMGE%20JUNE%202026%20information%20bulletin.pdf; official_site=https://natboard.edu.in; official_site=https://nbe.edu.in/; pattern_url=https://nbe.edu.in/IB/FMGE%20JUNE%202026%20information%20bulletin.pdf; syllabus_url=https://nbe.edu.in/IB/FMGE%20JUNE%202026%20information%20bulletin.pdf"]
+
+[[task]]
+id = "T-218"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the AIIMS NORCET (Nursing Officer) page (exams/medical/aiims-norcet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts shadaloverlover) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://aiimsexams.ac.in/advertisement/6a6350f7e5a81c4267f4ff04; official_site=https://aiimsexams.ac.in; pattern_url=https://docs.aiimsexams.ac.in/sites/1_Advertisement_NORCET_-8.Ver_2.0[1].pdf; syllabus_url=https://docs.aiimsexams.ac.in/sites/1_Advertisement_NORCET_-8.Ver_2.0[1].pdf"]
+
+[[task]]
+id = "T-219"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the UPSC NDA and NA page (exams/upsc/upsc-nda.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-220"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the UPSC Combined Defence Services (CDS) page (exams/upsc/upsc-cds.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-221"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the UPSC CAPF (Assistant Commandant) page (exams/upsc/upsc-capf.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-222"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the UPSC Combined Medical Services (CMS) page (exams/upsc/upsc-cms.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-223"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the UPSC Indian Forest Service (IFoS) page (exams/upsc/upsc-ifos.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-224"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the UPSC EPFO (EO/AO, APFC) page (exams/upsc/upsc-epfo.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-225"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the UPSC Combined Geo-Scientist page (exams/upsc/upsc-geoscientist.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-226"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the UPSC Indian Economic / Statistical Service (IES/ISS) page (exams/upsc/upsc-ies-iss.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-227"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the UPPSC PCS (Combined State/Upper Subordinate Services) page (exams/state-psc/uppsc-pcs.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-228"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the BPSC Combined Competitive Examination page (exams/state-psc/bpsc-cce.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-229"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the RPSC RAS/RTS page (exams/state-psc/rpsc-ras.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-230"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the MPPSC State Service Examination page (exams/state-psc/mppsc-sse.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts rajon369963) found candidate official links - fetch each with the fetch tool before using it: official_site=https://mppsc.mp.gov.in/"]
+
+[[task]]
+id = "T-231"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the MPSC State Services (Rajyaseva) page (exams/state-psc/mpsc-rajyaseva.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts rajon369963) found candidate official links - fetch each with the fetch tool before using it: official_site=https://mpsc.gov.in/"]
+
+[[task]]
+id = "T-232"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the APSC Combined Competitive Examination (Assam) page (exams/state-psc/apsc-cce.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-233"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the WBCS (West Bengal Civil Service) page (exams/state-psc/wbcs.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-234"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the TNPSC Group 1 page (exams/state-psc/tnpsc-group-1.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-235"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the TNPSC Group 4 page (exams/state-psc/tnpsc-group-4.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-236"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the KPSC KAS (Karnataka Administrative Service) page (exams/state-psc/kpsc-kas.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.kpsc.kar.nic.in/GP%202026-27%20Final%20Notification%20with%20PH%20Schedules%20HOSTED%20ON%2031-07-2026.pdf; official_site=https://kpsc.kar.nic.in; pattern_url=https://www.kpsc.kar.nic.in/GP%202026-27%20Final%20Notification%20with%20PH%20Schedules%20HOSTED%20ON%2031-07-2026.pdf; syllabus_url=https://kpsc.kar.nic.in/syllabus.html"]
+
+[[task]]
+id = "T-237"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the OPSC Odisha Civil Services page (exams/state-psc/opsc-ocs.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cdn-images.prepp.in/public/image/OPSC_OCS_Official_notification_2025_26_7c6822cf67d0da6efc3a34ebde5f9090.pdf; official_site=https://opsc.gov.in; pattern_url=https://cdn-images.prepp.in/public/image/OPSC_OCS_Official_notification_2025_26_7c6822cf67d0da6efc3a34ebde5f9090.pdf; syllabus_url=https://cdn-images.prepp.in/public/image/OPSC_OCS_Official_notification_2025_26_7c6822cf67d0da6efc3a34ebde5f9090.pdf"]
+
+[[task]]
+id = "T-238"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the HPSC HCS (Haryana Civil Services) page (exams/state-psc/hpsc-hcs.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-239"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the CGPSC State Service Examination page (exams/state-psc/cgpsc-sse.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-240"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the JPSC Combined Civil Services page (exams/state-psc/jpsc-cce.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://jpsc.gov.in/data/Advertisement_01_26_dated_29_01_2026-1.pdf; notification_url=https://www.jpsc.gov.in/data/Advertisement_01_26_dated_29_01_2026-1.pdf; official_site=https://www.jpsc.gov.in; pattern_url=https://jpsc.gov.in/data/Advertisement_01_26_dated_29_01_2026-1.pdf; pattern_url=https://www.jpsc.gov.in/data/Advertisement_01_26_dated_29_01_2026-1.pdf; syllabus_url=https://www.jpsc.gov.in/Syllabus.php"]
+
+[[task]]
+id = "T-241"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the UKPSC Combined State Civil Services page (exams/state-psc/ukpsc-pcs.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-242"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the Kerala PSC exams (LDC, KAS and others) page (exams/state-psc/kerala-psc.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.keralapsc.gov.in/extra-ordinary-gazette-date-31082026; official_site=https://www.keralapsc.gov.in; pattern_url=https://www.keralapsc.gov.in/kerala-administrative-service; syllabus_url=https://www.keralapsc.gov.in/kerala-administrative-service"]
+
+[[task]]
+id = "T-243"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the APPSC Group 1 page (exams/state-psc/appsc-group-1.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://portal-psc.ap.gov.in/HomePages/RecruitmentNotifications; official_site=https://portal-psc.ap.gov.in/; pattern_url=https://portal-psc.ap.gov.in/HomePages/Group-ISyllabus18; syllabus_url=https://portal-psc.ap.gov.in/HomePages/Group-ISyllabus18"]
+
+[[task]]
+id = "T-244"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the TGPSC (Telangana) Group 1 page (exams/state-psc/tgpsc-group-1.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-245"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the GPSC Class 1–2 (Gujarat) page (exams/state-psc/gpsc-class-1-2.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-246"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the SSC CHSL (Combined Higher Secondary Level) page (exams/ssc/ssc-chsl.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-247"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the SSC MTS and Havaldar page (exams/ssc/ssc-mts.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-248"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the SSC GD Constable page (exams/ssc/ssc-gd.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-249"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the SSC CPO (Sub-Inspector in Delhi Police and CAPFs) page (exams/ssc/ssc-cpo.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-250"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the SSC Stenographer (Grade C and D) page (exams/ssc/ssc-stenographer.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-251"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the SSC Selection Posts page (exams/ssc/ssc-selection-post.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-252"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the SSC Junior Hindi Translator (JHT) page (exams/ssc/ssc-jht.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-253"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the Delhi Police Constable (conducted by SSC) page (exams/ssc/delhi-police-constable.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf; official_site=https://ssc.gov.in; pattern_url=https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf; syllabus_url=https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf"]
+
+[[task]]
+id = "T-254"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the RRB NTPC page (exams/railways/rrb-ntpc.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-255"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the RRB Group D (Level 1) page (exams/railways/rrb-group-d.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-256"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the RRB Assistant Loco Pilot (ALP) page (exams/railways/rrb-alp.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-257"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the RRB Technician page (exams/railways/rrb-technician.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-258"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the RPF Constable page (exams/railways/rpf-constable.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://rrbsecunderabad.gov.in/wp-content/uploads/2024/04/Final-Notice-RPF-Constable-02-2024_English.pdf; official_site=https://www.rrbapply.gov.in; official_site=https://www.rrbapply.gov.in/; pattern_url=https://rrbsecunderabad.gov.in/wp-content/uploads/2024/04/Final-Notice-RPF-Constable-02-2024_English.pdf; syllabus_url=https://rrbsecunderabad.gov.in/wp-content/uploads/2024/04/Final-Notice-RPF-Constable-02-2024_English.pdf"]
+
+[[task]]
+id = "T-259"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the RPF Sub-Inspector page (exams/railways/rpf-si.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-260"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the IBPS Clerk page (exams/banking/ibps-clerk.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-261"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the IBPS RRB (Officer Scale I and Office Assistant) page (exams/banking/ibps-rrb.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.ibps.in/wp-content/uploads/CRP-RRBs-XV-notification.pdf; official_site=https://www.ibps.in; pattern_url=https://www.ibps.in/wp-content/uploads/CRP-RRBs-XV-notification.pdf; syllabus_url=https://www.ibps.in/wp-content/uploads/CRP-RRBs-XV-notification.pdf"]
+
+[[task]]
+id = "T-262"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the IBPS SO (Specialist Officer) page (exams/banking/ibps-so.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf; official_site=https://www.ibps.in; pattern_url=https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf; syllabus_url=https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf"]
+
+[[task]]
+id = "T-263"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the SBI PO page (exams/banking/sbi-po.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-264"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the SBI Clerk (Junior Associate) page (exams/banking/sbi-clerk.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-265"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the RBI Grade B page (exams/banking/rbi-grade-b.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.rbi.org.in/scripts/Bs_viewcontent.aspx?Id=5147; official_site=https://www.rbi.org.in; pattern_url=https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=5113; pattern_url=https://www.rbi.org.in/scripts/Result_Officers_Grade_B_General_DR_PY_2026.aspx; syllabus_url=https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=5113"]
+
+[[task]]
+id = "T-266"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the RBI Assistant page (exams/banking/rbi-assistant.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=4404; official_site=https://www.rbi.org.in; pattern_url=https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=4353"]
+
+[[task]]
+id = "T-267"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the NABARD Grade A page (exams/banking/nabard-grade-a.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts rajon369963) found candidate official links - fetch each with the fetch tool before using it: official_site=https://www.nabard.org/"]
+
+[[task]]
+id = "T-268"
+lane = "opencode"
+focus = "india"
+priority = 2
+title = "Verify the SEBI Grade A page (exams/banking/sebi-grade-a.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-269"
+lane = "hermes"
+focus = "india"
+priority = 2
+title = "Verify the LIC AAO page (exams/banking/lic-aao.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775, rajon369963) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://licindia.in/documents/d/guest/aao-generalist-notification-2025-final; official_site=https://licindia.in; official_site=https://licindia.in/; pattern_url=https://licindia.in/documents/d/guest/aao-generalist-notification-2025-final; syllabus_url=https://licindia.in/documents/d/guest/aao-generalist-notification-2025-final"]
+
+[[task]]
+id = "T-270"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the AFCAT (Air Force Common Admission Test) page (exams/defence/afcat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, senp06341) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://afcat.cdac.in; notification_url=https://afcat.edcil.co.in/assets/images/news/AFCAT_02_2025/Notification_AFCAT_01-2026.pdf; official_site=https://afcat.cdac.in; official_site=https://afcat.edcil.co.in; pattern_url=https://afcat.edcil.co.in/assets/images/news/AFCAT_02_2025/Notification_AFCAT_01-2026.pdf; syllabus_url=https://afcat.edcil.co.in/assets/images/news/AFCAT_02_2025/Notification_AFCAT_01-2026.pdf"]
+
+[[task]]
+id = "T-271"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the Agniveer (Army) page (exams/defence/agniveer-army.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, senp06341) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://joinindianarmy.nic.in; notification_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf; official_site=https://joinindianarmy.nic.in; pattern_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf; syllabus_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf"]
+
+[[task]]
+id = "T-272"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the Agniveer (Navy) page (exams/defence/agniveer-navy.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, senp06341) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://joinindianarmy.nic.in; notification_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf; official_site=https://joinindianarmy.nic.in; pattern_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf; syllabus_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf"]
+
+[[task]]
+id = "T-273"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the Agniveer Vayu (Air Force) page (exams/defence/agniveer-vayu.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, senp06341) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://joinindianarmy.nic.in; notification_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf; official_site=https://joinindianarmy.nic.in; pattern_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf; syllabus_url=https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf"]
+
+[[task]]
+id = "T-274"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the Indian Coast Guard Navik / Yantrik page (exams/defence/icg-navik.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: official_site=https://indiancoastguard.gov.in/"]
+
+[[task]]
+id = "T-275"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the CTET page (exams/teaching/ctet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-276"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the UGC NET page (exams/teaching/ugc-net.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-277"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the CSIR NET (JRF / Assistant Professor) page (exams/teaching/csir-net.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-278"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the KVS teacher and staff recruitment page (exams/teaching/kvs-recruitment.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775, rajon369963) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://kvsangathan.nic.in/en/document/recruitment-notification-no-1-2025-filling-up-the-teaching-and-non-teaching-posts-in-kvs-through-direct-recruitment/; official_site=https://kvsangathan.nic.in; official_site=https://kvsangathan.nic.in/; pattern_url=https://kvsangathan.nic.in/en/recruitment/; pattern_url=https://kvsangathan.nic.in/en/syllabus/?_archive=1; syllabus_url=https://kvsangathan.nic.in/en/syllabus/?_archive=1"]
+
+[[task]]
+id = "T-279"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the NVS teacher and staff recruitment page (exams/teaching/nvs-recruitment.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cdnbbsr.s3waas.gov.in/s32d2ca7eedf739ef4c3800713ec482e1a/uploads/2025/11/2025111348.pdf; official_site=https://navodaya.gov.in; pattern_url=https://cdnbbsr.s3waas.gov.in/s32d2ca7eedf739ef4c3800713ec482e1a/uploads/2025/11/2025111348.pdf; syllabus_url=https://cdnbbsr.s3waas.gov.in/s32d2ca7eedf739ef4c3800713ec482e1a/uploads/2025/11/2025111348.pdf"]
+
+[[task]]
+id = "T-280"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the State TETs (UPTET, REET, MAHATET and others) page (exams/teaching/state-tet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-281"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the DSSSB teacher and staff recruitment (Delhi) page (exams/teaching/dsssb.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, debdebojit28) found candidate official links - fetch each with the fetch tool before using it: official_site=https://dsssb.delhi.gov.in; official_site=https://dsssbonline.nic.in/"]
+
+[[task]]
+id = "T-282"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the CUET UG page (exams/university-entrance/cuet-ug.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-283"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the CUET PG page (exams/university-entrance/cuet-pg.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-284"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the IIT JAM page (exams/university-entrance/iit-jam.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://jam.iitkgp.ac.in/notifications.html; official_site=https://jam.iitkgp.ac.in/; pattern_url=https://jam.iitkgp.ac.in/syllabus.html; syllabus_url=https://jam.iitkgp.ac.in/syllabus.html"]
+
+[[task]]
+id = "T-285"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the NIFT entrance page (exams/university-entrance/nift-entrance.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.nift.ac.in/sites/default/files/2026-08/Admission-Prospectus-2026_1.pdf; official_site=https://www.nift.ac.in; pattern_url=https://www.nift.ac.in/sites/default/files/2026-08/Admission-Prospectus-2026_1.pdf; syllabus_url=https://www.nift.ac.in/sites/default/files/2026-08/Admission-Prospectus-2026_1.pdf"]
+
+[[task]]
+id = "T-286"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the NID Design Aptitude Test (DAT) page (exams/university-entrance/nid-dat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://www.nid.edu/academics/programmes/bachelor-of-design-bdes; official_site=https://admissions.nid.edu; pattern_url=https://www.nid.edu/academics/programmes/bachelor-of-design-bdes; syllabus_url=https://www.nid.edu/academics/programmes/bachelor-of-design-bdes"]
+
+[[task]]
+id = "T-287"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the UCEED page (exams/university-entrance/uceed.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-288"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the NCHM JEE (hotel management) page (exams/university-entrance/nchm-jee.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://exams.nta.nic.in/admit-card-for-nchm-jee-2026/; notification_url=https://nta.ac.in/Download/Notice/Notice_20241230130020.pdf; official_site=https://exams.nta.nic.in/nchm-jee/; pattern_url=https://nchm.gov.in/sites/default/files/2024-12/NCHM_JEE.pdf; pattern_url=https://nta.ac.in/Download/Notice/Notice_20241230130020.pdf; syllabus_url=https://exams.nta.nic.in/nchm-jee/; syllabus_url=https://nchm.gov.in/sites/default/files/2024-12/NCHM_JEE.pdf"]
+
+[[task]]
+id = "T-289"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the NATA (architecture aptitude) page (exams/university-entrance/nata.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://nata.in/assets/pdf/NATA%20BROCHURE%202026%20Final-V1.0%20(1).pdf; notification_url=https://www.nata.in/assets/pdf/nata-brochure-final.pdf; official_site=https://www.nata.in; pattern_url=https://nata.in/assets/pdf/NATA%20BROCHURE%202026%20Final-V1.0%20(1).pdf; pattern_url=https://www.nata.in/assets/pdf/nata-brochure-final.pdf; syllabus_url=https://nata.in/assets/pdf/NATA%20BROCHURE%202026%20Final-V1.0%20(1).pdf; syllabus_url=https://www.nata.in/assets/pdf/nata-brochure-final.pdf"]
+
+[[task]]
+id = "T-290"
+lane = "opencode"
+focus = "india"
+priority = 4
+title = "Verify the JNV Selection Test (Navodaya, Class 6 and 9) page (exams/school/jnvst.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts dasmonaj190, monojitdeb7775) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cbseitms.nic.in/2026/nvsix_9/assets/pdf/FINAL_CLASS_IX_PROSPECTUS_2027.pdf; official_site=https://navodaya.gov.in; pattern_url=https://cbseitms.nic.in/2026/nvsix_9/assets/pdf/FINAL_CLASS_IX_PROSPECTUS_2027.pdf; syllabus_url=https://cbseitms.nic.in/2026/nvsix_9/assets/pdf/FINAL_CLASS_IX_PROSPECTUS_2027.pdf"]
+
+[[task]]
+id = "T-291"
+lane = "hermes"
+focus = "india"
+priority = 4
+title = "Verify the AISSEE (Sainik School entrance) page (exams/school/aissee.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://nta.ac.in/Download/Notice/Notice_20251010181643.pdf; official_site=https://exams.nta.nic.in/sainik-school-society/; pattern_url=https://exams.nta.nic.in/document/aissee-information-bulletin/; syllabus_url=https://exams.nta.nic.in/document/aissee-information-bulletin/"]
+
+[[task]]
+id = "T-292"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the CLAT page (exams/law/clat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://consortiumofnlus.ac.in/clat-2027/notifications/Press_Release_CLAT_2027.pdf; official_site=https://consortiumofnlus.ac.in; pattern_url=https://consortiumofnlus.ac.in/clat-2027/ug-question-format.html; syllabus_url=https://consortiumofnlus.ac.in/clat-2027/ug-syllabus.html"]
+
+[[task]]
+id = "T-293"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the AILET (NLU Delhi) page (exams/law/ailet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts shadaloverlover) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://nationallawuniversitydelhi.in/notification/AILET_2027.pdf; official_site=https://nationallawuniversitydelhi.in; pattern_url=https://nationallawuniversitydelhi.in/ballb/exam-details.html; syllabus_url=https://nationallawuniversitydelhi.in/ballb/exam-details.html"]
+
+[[task]]
+id = "T-294"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the MAH CET Law page (exams/law/mh-cet-law.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cetcell.mahacet.org/cms-download/information-brochure-for-mah-l-l-b-3-yrs-cet-a-y-2026-27/; official_site=https://cetcell.mahacet.org/; pattern_url=https://cetcell.mahacet.org/syllabus-and-marking-scheme/; syllabus_url=https://cetcell.mahacet.org/syllabus-and-marking-scheme/"]
+
+[[task]]
+id = "T-295"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the CAT page (exams/management/cat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-296"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the XAT page (exams/management/xat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-297"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the MAT page (exams/management/mat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://aima.in/mat/; official_site=https://mat.aima.in/; pattern_url=https://aima.in/mat/faq/"]
+
+[[task]]
+id = "T-298"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Verify the CMAT page (exams/management/cmat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://nta.ac.in/Download/Notice/Notice_20251017143944.pdf; official_site=https://cmat.nta.nic.in; pattern_url=https://cmat.nta.nic.in/"]
+
+[[task]]
+id = "T-299"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the SNAP page (exams/management/snap.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-300"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the NMAT page (exams/management/nmat.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://aima.in/mat/; official_site=https://mat.aima.in/; pattern_url=https://aima.in/mat/faq/"]
+
+[[task]]
+id = "T-301"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the IPMAT (IIM Indore) page (exams/management/ipmat-indore.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts debdebojit28) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://aima.in/mat/; official_site=https://mat.aima.in/; pattern_url=https://aima.in/mat/faq/"]
+
+[[task]]
+id = "T-302"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Verify the MAH MBA/MMS CET page (exams/management/mah-mba-cet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts monojitdeb7775, rajon369963) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://cetcell.mahacet.org/wp-content/uploads/2023/12/CET-Registration-Notice_MBA-MHT-CET-CET-2026.pdf; notification_url=https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-MBA-MMS-CET-2026-Information-Brochure.pdf; official_site=https://cetcell.mahacet.org; official_site=https://cetcell.mahacet.org/; pattern_url=https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-MBA-MMS-CET-2026-Information-Brochure.pdf; pattern_url=https://cetcell.mahacet.org/wp-content/uploads/2023/12/Syllabus-Technical-2026.pdf; syllabus_url=https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-MBA-MMS-CET-2026-Information-Brochure.pdf; syllabus_url=https://cetcell.mahacet.org/wp-content/uploads/2023/12/Syllabus-Technical-2026.pdf"]
+
+[[task]]
+id = "T-303"
+lane = "hermes"
+focus = "india"
+priority = 4
+title = "Verify the CA Foundation page (exams/professional/ca-foundation.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-304"
+lane = "hermes"
+focus = "india"
+priority = 4
+title = "Verify the CSEET (Company Secretary Executive Entrance Test) page (exams/professional/cseet.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+
+[[task]]
+id = "T-305"
+lane = "hermes"
+focus = "india"
+priority = 4
+title = "Verify the CMA Foundation page (exams/professional/cma-foundation.md) against its current official notification"
+accept = [
+  "every number under At a glance and Exam pattern matches the official notification; its URL is under Official sources",
+  "anything the notification does not confirm is removed or marked; verification = official only with a fetched official source",
+]
+hints = ["Spark (Google accounts lakhidas168) found candidate official links - fetch each with the fetch tool before using it: notification_url=https://icmai.in/ClntStudents/Student_Circulars; official_site=https://icmai.in; pattern_url=https://icmai.in/ClntStudents/Foundation_Course_Curriculum; syllabus_url=https://icmai.in/ClntStudents/Foundation_Course_Curriculum"]
+
+[[task]]
+id = "T-401"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/hindi-language.md (Hindi language) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-402"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/data-interpretation.md (Data interpretation) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-403"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/computer-awareness.md (Computer awareness) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-404"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/banking-awareness.md (Banking and financial awareness) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-405"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/descriptive-writing.md (Essay and descriptive writing) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-406"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ncert-physics.md (Physics (NCERT Class 11–12)) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-407"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ncert-chemistry.md (Chemistry (NCERT Class 11–12)) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-408"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ncert-mathematics.md (Mathematics (NCERT Class 11–12)) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-409"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ncert-biology.md (Biology (NCERT Class 11–12)) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-410"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/gs-polity.md (Indian polity and governance) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-411"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/gs-history.md (Indian history and culture) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-412"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/gs-geography.md (Geography of India and the world) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-413"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/gs-economy.md (Indian economy) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-414"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/gs-environment.md (Environment and ecology) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-415"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/gs-science-tech.md (Science and technology (current)) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-416"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/csat.md (CSAT: comprehension, reasoning, basic numeracy) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-417"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/legal-reasoning.md (Legal reasoning) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-418"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/child-pedagogy.md (Child development and pedagogy) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-419"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/teaching-research-aptitude.md (Teaching and research aptitude) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-420"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/accounting-basics.md (Accounting and business basics) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-421"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/mbbs-subjects.md (MBBS subjects (pre-clinical, para-clinical, clinical)) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-422"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/nursing-subjects.md (Nursing subjects) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-423"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/engineering-mathematics.md (Engineering mathematics) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-424"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ee-core.md (Electrical engineering core) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-425"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ece-core.md (Electronics and communication core) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-426"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/cs-core.md (Computer science core) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-427"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/me-core.md (Mechanical engineering core) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-428"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Review modules/ce-core.md (Civil engineering core) against the official syllabi of the exams it counts for"
+accept = [
+  "What it covers matches the official syllabus of at least two exams in its Where it counts table; those syllabus URLs are listed",
+  "every Free resources link opens and points to a publisher or official body (dead or unofficial links removed); passes the content gate",
+]
+
+[[task]]
+id = "T-107"
+lane = "opencode"
+priority = 2
+title = "Exam calendar from official dates only: registry fields for the next notification and exam window, each with its official source URL; export_json.py adds them and the website build publishes /data/exams.ics"
+accept = [
+  "scripts/validate.py rejects a date without an official source URL on an allowlisted host (unit test proves it)",
+  "the .ics export has one event per dated exam, links to the exam page and its official source, and is covered by a unit test",
+]
+
+[[task]]
+id = "T-306"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Previous papers: add one more state commission's official question-paper archive to resources/previous-papers.md (link only the commission's own site)"
+accept = [
+  "the new link opens on the commission's official domain and is recorded under Sources fetched",
+  "no coaching or third-party paper sites are added",
+]
+
+[[task]]
+id = "T-307"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Free coaching: add one state government's free coaching scheme for competitive exams to resources/free-coaching.md, from its official page or myscheme.gov.in"
+accept = [
+  "eligibility and benefits match the scheme's official guidelines, whose URL is listed",
+  "the scheme page was fetched this run (Sources fetched)",
+]
+
+[[task]]
+id = "T-308"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Study plans: resources/study-plans/<exam>.md with a 6-month and a 12-month plan for UPSC CSE, SSC CGL, JEE Main and NEET UG, built from the shared modules and each exam's official syllabus"
+accept = [
+  "each plan names the modules in order with week ranges, and links the official syllabus and the previous-papers page",
+  "no paid or coaching material is recommended",
+]
+
+[[task]]
+id = "T-309"
+lane = "hermes"
+focus = "india"
+priority = 4
+title = "Review resources/open-source-projects.md: for each project, record its license and confirm it hosts no coaching institutes' paid material; remove any that fail"
+accept = [
+  "every remaining row names its license",
+  "removed projects are listed in the commit message with the reason",
+]
+
+[[task]]
+id = "T-110"
+lane = "opencode"
+priority = 2
+title = "CBT mock engine in the website (tools/): NTA-style question palette, mark for review, section timer, negative marking, auto-submit; runs the T-101 question format offline"
+accept = [
+  "a sample test of original questions runs on the website and in the offline copy (end-to-end check with Playwright or node)",
+  "no login, progress only in localStorage; unit test covers scoring with negative marking",
+]
+
+[[task]]
+id = "T-111"
+lane = "opencode"
+priority = 3
+title = "JEE college predictor from the official JoSAA opening/closing rank archive: data/josaa/<year>.csv fetched from josaa.admissions.nic.in plus a tool page"
+accept = [
+  "every row traces to the official archive URL recorded under Sources fetched",
+  "the tool labels results safe / possible / reach and says ranks change every year",
+]
+
+[[task]]
+id = "T-112"
+lane = "opencode"
+priority = 4
+title = "RSS feed of UPDATES.md in the website build (/feed.xml), so students can follow new pages and verified changes in any reader"
+accept = [
+  "the feed validates as RSS 2.0 or Atom (unit test)",
+  "no schedule is added; it is built with the site",
+]
+
+[[task]]
+id = "T-113"
+lane = "opencode"
+priority = 4
+title = "Normalisation calculator for multi-shift exams, only with the formula published by the exam body (SSC or RRB notice), linked from the tool"
+accept = [
+  "the notice URL is on an allowlisted host and fetched",
+  "unit test reproduces the notice's worked example if it has one",
+]
+
+[[task]]
+id = "T-310"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Daily current affairs: resources/current-affairs/<date>.md, a digest of that day's PIB releases for UPSC/SSC/banking with 5 original MCQs, each linking its PIB release"
+accept = [
+  "every fact and MCQ comes from a linked pib.gov.in release fetched this run",
+  "no newspaper or coaching text is copied",
+]
+
+[[task]]
+id = "T-311"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "UPSC answer writing: one daily Mains question built from the official GS syllabus, with the directive word explained, links to the official papers and the evaluator prompt in tools/ai-study-prompts.md"
+accept = [
+  "the question is original and names its syllabus topic",
+  "no model answer copied from coaching material",
+]
+
+[[task]]
+id = "T-312"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Hindi versions of the most-used pages (README start, overlap map, free coaching, previous papers) as <page>.hi.md with a language link"
+accept = [
+  "meaning matches the English page; official names and numbers unchanged",
+  "links stay valid (validate.py passes)",
+]
+
+[[task]]
+id = "T-313"
+lane = "hermes"
+focus = "india"
+priority = 3
+title = "Flashcard deck for one more module in data/flashcards/<module>-<topic>.json, every card from a named official source (NCERT, an official report or act)"
+accept = [
+  "tests/test_tools.py passes (schema, official source host)",
+  "20-60 cards; one fact per card",
+]
+
+[[task]]
+id = "T-314"
+lane = "hermes"
+focus = "india"
+priority = 4
+title = "AI study prompts: an exam-family pack (SSC/banking, JEE/NEET, GATE/ESE, state PSC) added to tools/ai-study-prompts.md"
+accept = [
+  "each prompt makes the model cite NCERT or the official syllabus and admit uncertainty",
+  "no prompt asks for personal data",
+]
+
+[[task]]
+id = "T-315"
+lane = "opencode"
+priority = 3
+title = "Eligibility in the registry: age limits, qualification and attempts per exam from its official notification, plus an eligibility checker tool"
+accept = [
+  "validate.py rejects an eligibility entry without an official source URL (unit test)",
+  "the checker says 'confirm in the notification' and handles relaxations as ranges",
+]
+
+[[task]]
+id = "T-316"
+lane = "hermes"
+focus = "india"
+where = "mac"
+priority = 3
+title = "Community insights: read the most-upvoted threads on free preparation in r/UPSC, r/JEENEETards, r/GATE, r/SSC and similar forums; add the legal, repeatable tips to resources/study-methods.md with thread links"
+accept = [
+  "every added tip links the thread it came from; no usernames or personal details are copied",
+  "tips that recommend pirated material or paid-only products are left out",
+]
+
+[[task]]
+id = "T-317"
+lane = "jevx"
+priority = 2
+title = "Plan from ops/plan/feature-catalogue.md: turn the ten highest-value idea items (marked with a bulb), starting with the interconnection chains, into backlog tasks with acceptance criteria"
+accept = [
+  "each new task names the feature number it implements and has testable acceptance criteria",
+  "no task depends on unofficial data or asks for personal data",
+]
+
+[[task]]
+id = "T-121"
+lane = "opencode"
+priority = 2
+title = "Exam AI corpus: export_json.py --corpus writes data/corpus.jsonl (one record per page section: url, title, heading, text, evidence status, official links); built with the website"
+accept = [
+  "unit test: every record has a url and a verification status, and no record exceeds 2,000 characters",
+  "ops/plan/exam-llm.md phase 0",
+]
+
+[[task]]
+id = "T-120"
+lane = "opencode"
+priority = 2
+title = "Ask the list: a website tool that retrieves the best corpus sections in the browser and answers with an in-browser open model (WebLLM), citing each section; falls back to showing the sections when the device cannot run a model"
+accept = [
+  "a code verifier rejects any answer sentence whose citation is not among the retrieved sections (unit test)",
+  "works in the offline copy after the model download; no server calls besides this site and the model files",
+]
+
+[[task]]
+id = "T-122"
+lane = "hermes"
+priority = 2
+title = "Exam AI evaluation set: 50 original questions per exam family with answers verified against official sources, plus questions the list cannot answer (expected answer: not sure, with the official link)"
+accept = [
+  "every answer cites the official source URL it was checked against",
+  "no question copied from an exam paper or coaching material",
+]
+
+[[task]]
+id = "T-123"
+lane = "opencode"
+priority = 3
+title = "LoRA fine-tuning notebook for Kaggle's free GPUs: one permissively licensed small base model, one adapter per exam family, trained only on this list's content, original questions and datasets whose license allows it"
+accept = [
+  "the notebook records every dataset and base model with its license",
+  "the adapter beats the base model on the T-122 set before any release",
+]
+
+[[task]]
+id = "T-124"
+lane = "opencode"
+priority = 3
+title = "Publish the exam AI to Hugging Face Hub (adapter, merged weights, GGUF, WebLLM build, model card with evaluations and limits) from a manual workflow using the HF_TOKEN secret"
+accept = [
+  "the workflow has no schedule and runs only by hand",
+  "the model card states the license, data sources, evaluation results and the evidence-gate behaviour",
+]
+
+[[task]]
+id = "T-125"
+lane = "opencode"
+where = "mac"
+priority = 3
+title = "Hindi and regional pages with AI4Bharat IndicTrans2 (MIT): translate the most-used pages as drafts for T-312, keeping official names, numbers and links unchanged"
+accept = [
+  "numbers, dates and URLs are identical to the English page (checked by code)",
+  "each draft is reviewed before it is published",
+]
+
+[[task]]
+id = "H-006"
+lane = "human"
+priority = 3
+title = "Save the Hugging Face write token as the repository secret HF_TOKEN and the Kaggle API token as KAGGLE_API_TOKEN, then run the ai-accounts workflow (docs/OWNER-CLICKS.md section C)"
+accept = [
+  "the ai-accounts workflow run shows both logins working",
+]
+
+[[task]]
+id = "T-105"
+lane = "opencode"
+priority = 2
+title = "validate.py: check that every exam page's official_site matches its registry entry (or the registry one is blank)"
+accept = [
+  "unit test proves a mismatch is rejected",
+  "existing pages still pass",
+]
+
+[[task]]
+id = "T-106"
+lane = "opencode"
+focus = "india"
+priority = 3
+title = "Generate a per-family 'start here' section in resources/overlap-map.md: the 3 modules that cover the most exams in each family"
+accept = [
+  "generated by validate.py --write from the registry",
+  "unit test covers one family",
+]
+
+# ---- Added by Claude on the owner's Mac, 2026-09-28 (Rajon's /goal: real value from his own verified work) ----
+[[task]]
+id = "T-150"
+lane = "opencode"
+focus = "core"
+where = "mac"
+priority = 1
+title = "GATE EE previous papers + official keys 2016-2026: one page of OFFICIAL links (resources/gate-ee-previous-papers.md)"
+accept = [
+  "links taken from the owner's verified manifest: sqlite3 -readonly ~/AIR10_LIBRARY/official_pyq/official_pyq.sqlite 'select distinct year, source_url from questions' (IIT organiser sites; 2016-2018 = the IIT Guwahati GATE 2026 bulk archive linked from gate2026.iitg.ac.in/doc/download/)",
+  "every URL fetched this run with the fetch tool (status recorded); a dead link is listed as dead, never replaced by a coaching mirror",
+  "linked from exams/engineering/gate-ee.md and resources/ee-free-resources.md; no PDF is copied into the repo",
+]
+
+[[task]]
+id = "T-151"
+lane = "opencode"
+focus = "core"
+priority = 1
+title = "Exam calendar 2026-27 for the electrical track (resources/ee-calendar-2026-27.md): GATE 2027, UPSC ESE 2027 prelims/mains, SSC JE 2026, RRB JE CEN 04/2026"
+accept = [
+  "each date copied from the official page fetched this run (gate2027.iitm.ac.in, upsc.gov.in, ssc.gov.in, rrbapply.gov.in or a regional RRB site); anything not on an official page is marked 'not announced'",
+  "registration windows included (GATE 2027 late fee, ESE 2027 last date) with the source URL next to each",
+]
+
+[[task]]
+id = "T-152"
+lane = "opencode"
+focus = "core"
+priority = 2
+title = "UPSC ESE previous question papers: official upsc.gov.in links for ESE prelims Paper-I/II (EE) and mains, every available year"
+accept = [
+  "only upsc.gov.in URLs (Previous Question Papers / Answer Keys pages), fetched this run; missing years listed honestly",
+  "linked from exams/engineering/upsc-ese-ee.md",
+]
+
+[[task]]
+id = "T-153"
+lane = "opencode"
+focus = "core"
+priority = 2
+title = "One-track plan for the electrical track (resources/ee-one-track-plan.md): which GATE EE + ESE Paper-II subjects also cover SSC JE, RRB JE, State AE/JE and PSU papers, and what each adds"
+accept = [
+  "built from the official syllabi linked on each exam page (fetched this run), not from coaching material",
+  "table: subject x exam, with the extra topics each exam adds (e.g. SSC JE estimation/costing, RRB JE GS/basic science, ESE Paper-I, GATE GA + maths)",
+]
+
+[[task]]
+id = "T-154"
+lane = "opencode"
+focus = "core"
+priority = 3
+title = "Free official study sources for EE: NPTEL courses (nptel.ac.in / onlinecourses.nptel.ac.in) mapped to GATE EE syllabus subjects"
+accept = [
+  "only NPTEL/SWAYAM/IIT official course pages, fetched this run; course code + instructor + institute per subject",
+  "added to resources/ee-free-resources.md under the matching subject",
+]

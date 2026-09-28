@@ -1,0 +1,49 @@
+# Hosts accepted as "official" for frontmatter `official_site` and for links under "## Official sources".
+# One entry per line. An entry matches the host itself and any subdomain of it.
+# Changing this file changes the gate: the JEVX lane must justify every addition in its review.
+
+# Government and academic suffixes
+gov.in
+nic.in
+ac.in
+edu
+
+# PSUs and state utilities that publish recruitment on their own domains
+ntpc.co.in
+powergrid.in
+nhpcindia.com
+iocl.com
+ongcindia.com
+gailonline.com
+hindustanpetroleum.com
+coalindia.in
+bhel.com
+bel-india.in
+nlcindia.in
+thdc.co.in
+aai.aero
+apdcl.org
+aegcl.co.in
+apgcl.org
+edu.in
+
+# Exam bodies that publish on their own domains (all-India exams)
+ibps.in
+sbi.co.in
+rbi.org.in
+nabard.org
+licindia.in
+icai.org
+icmai.in
+xatonline.in
+aima.in
+snaptest.org
+bitsadmission.com
+mahacet.org
+comedk.org
+nata.in
+nationallawuniversitydelhi.in
+cdac.in
+# GMAC owns and runs NMAT (mba.com is its candidate site, gmac.com its corporate site)
+mba.com
+gmac.com

@@ -17,6 +17,7 @@ import re
 
 TIMEOUT_S = 25
 _POOL = cf.ThreadPoolExecutor(2)
+_MISSING_SOLVERS = "this solver needs {} from the solvers extra: pip install -e '.[solvers]'"
 
 
 def _bounded(fn, *a):
@@ -74,8 +75,8 @@ def _clean_netlist(text):
 
 
 def _netlist(text, query, a, b, elements):
+    net = _clean_netlist(text)                  # validate before importing lcapy, so bad input is rejected without it
     from lcapy import Circuit
-    net = _clean_netlist(text)
     c = Circuit(net)
     res = {"ok": True, "kind": "netlist", "netlist": net.split("\n")}
     nodes = sorted({n for n in c.node_list if str(n) != "0"}, key=str)
@@ -101,6 +102,8 @@ def netlist(text="", query="all", a=None, b=None, elements=None):
         return _bounded(_netlist, text, query, a, b, elements)
     except ValueError as e:
         return {"ok": False, "error": str(e)}
+    except ImportError:
+        return {"ok": False, "error": _MISSING_SOLVERS.format("lcapy")}
 
 
 # ------------------------------------------------------------------------------------------------ control (python-control)
@@ -167,6 +170,8 @@ def control(p):
         return _bounded(_control, dict(p or {}))
     except (ValueError, TypeError, KeyError) as e:
         return {"ok": False, "error": f"{type(e).__name__}: {e}"}
+    except ImportError:
+        return {"ok": False, "error": _MISSING_SOLVERS.format("python-control")}
 
 
 # ------------------------------------------------------------------------------------------------ logic (SymPy)

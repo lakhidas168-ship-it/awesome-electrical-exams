@@ -21,8 +21,8 @@ GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs.
 git clone https://github.com/lakhidas168-ship-it/awesome-electrical-exams
 cd awesome-electrical-exams/tools/air10-exam
 
-# Install dependencies (add ,solvers for the netlist/control/power-flow solvers)
-pip install -e '.[dev]'
+# Install dependencies
+pip install -e .[dev]
 
 # Set up your data paths (see "Building Your Index" below)
 export AIR10_EXAM_HOME=~/.air10_exam_data
@@ -173,7 +173,7 @@ Every question carries a `provenance` field:
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md). In short:
+See [CONTRIBUTING.md](../CONTRIBUTING.md). In short:
 1. Fork → branch → PR with tests
 2. All gates must pass: `gitleaks`, `pytest`, path guard
 3. Only real, sourced content. Link to official sources.
@@ -183,4 +183,4 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md). In short:
 
 - [awesome-indian-exams](https://github.com/lakhidas168-ship-it/awesome-indian-exams) — 118 exams, 33 shared modules
 - [awesome-upsc-cse](https://github.com/lakhidas168-ship-it/awesome-upsc-cse) — UPSC CSE focused
-- sovereign-study-commons-india — reference RAG implementation (not public yet)
+- [sovereign-study-commons-india](https://github.com/lakhidas168-ship-it/sovereign-study-commons-india) — Reference RAG implementation

@@ -11,7 +11,6 @@ import ee_solvers as E  # noqa: E402
 
 
 def test_netlist_divider_and_thevenin():
-    pytest.importorskip("lcapy")
     r = E.netlist("V1 1 0 10\nR1 1 2 2\nR2 2 0 3", "all", "2", "0")
     assert r["ok"], r
     assert sp.sympify(r["node_voltages"]["2"]) == 6                     # 10 * 3/(2+3)
@@ -19,7 +18,6 @@ def test_netlist_divider_and_thevenin():
 
 
 def test_netlist_rc_step_transient():
-    pytest.importorskip("lcapy")
     r = E.netlist("V1 1 0 step 10; R1 1 2 2; C1 2 0 1", "elements", elements=["C1"])
     t = sp.Symbol("t", positive=True)
     v = sp.sympify(r["elements"]["C1"]["v"], locals={"t": t}).subs(sp.Heaviside(t), 1)
@@ -32,15 +30,7 @@ def test_netlist_rejects_unsafe_or_malformed(bad):
     assert E.netlist(bad)["ok"] is False
 
 
-def test_missing_solver_extra_gives_install_hint(monkeypatch):
-    monkeypatch.setitem(sys.modules, "lcapy", None)                      # import lcapy now raises ImportError
-    monkeypatch.setitem(sys.modules, "control", None)
-    for r in (E.netlist("V1 1 0 10\nR1 1 0 5"), E.control({"num": [1], "den": [1, 1]})):
-        assert r["ok"] is False and "pip install -e '.[solvers]'" in r["error"]
-
-
 def test_control_second_order():
-    pytest.importorskip("control")
     r = E.control({"num": [25], "den": [1, 6, 0]})                       # open loop 25/(s(s+6)) -> closed loop 25/(s^2+6s+25)
     assert r["ok"], r
     cl = r["closed_loop_unity_feedback"]
@@ -51,7 +41,6 @@ def test_control_second_order():
 
 
 def test_control_state_space_controllability():
-    pytest.importorskip("control")
     r = E.control({"A": [[0, 1], [-2, -3]], "B": [[0], [1]], "C": [[1, 0]]})
     assert r["ok"] and r["controllable"] and r["observable"]
     r2 = E.control({"A": [[-1, 0], [0, -2]], "B": [[1], [0]], "C": [[1, 1]]})

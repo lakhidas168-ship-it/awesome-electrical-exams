@@ -173,7 +173,7 @@ Every question carries a `provenance` field:
 
 ## Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md). In short:
+See [CONTRIBUTING.md](../../CONTRIBUTING.md). In short:
 1. Fork → branch → PR with tests
 2. All gates must pass: `gitleaks`, `pytest`, path guard
 3. Only real, sourced content. Link to official sources.

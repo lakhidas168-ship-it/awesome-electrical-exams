@@ -150,3 +150,14 @@ link to official sources, never copy coaching material, never invent numbers.
 ---
 
 *Maintained by Rajon Das.*
+
+---
+
+<!-- topper-updater:ee:begin -->
+## 🗺️ Strategy — PYQ patterns
+
+- [strategy/gate-ee/pyq-patterns.md](strategy/gate-ee/pyq-patterns.md) — GATE EE five-year previous-year-question pattern.
+- [strategy/ese-ee/pyq-patterns.md](strategy/ese-ee/pyq-patterns.md) — UPSC ESE (EE) five-year previous-year-question pattern.
+
+See [strategy/README.md](strategy/README.md).
+<!-- topper-updater:ee:end -->

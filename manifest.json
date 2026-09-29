@@ -1,0 +1,42 @@
+{
+  "repo": "awesome-electrical-exams",
+  "generated": "2026-09-30T02:20:52",
+  "generator": "topper-updater (deterministic)",
+  "taxonomy": "~/.air10/exam_repos/TAXONOMY.md",
+  "sources": {
+    "exam_pack:gate-ee": {
+      "path": ".air10/exam_packs/gate-ee/pyq_analysis.md",
+      "sha256": "39d537832679bc6f8eae7a3d97514a4ec66d4ba2ae393195b5c4a9130e07453c"
+    },
+    "exam_pack:ese-ee": {
+      "path": ".air10/exam_packs/upsc-ese-ee/pyq_analysis.md",
+      "sha256": "8e0442a77d3111d52aa965f0425c86f8ffe714609f8f17030bac82b4f9608b49"
+    }
+  },
+  "files": {
+    "README.md": {
+      "sha256": "03ccc9ce9caf3f372500a48bcc730e2cfc2c5b2618538f60cf2fbb3af50fc295",
+      "sources": [
+        "readme_index"
+      ]
+    },
+    "strategy/README.md": {
+      "sha256": "1383b946254e45b6d3451b5e2d847c60495527ddab8e6539f432f3dd51bad7dc",
+      "sources": [
+        "strategy_index"
+      ]
+    },
+    "strategy/ese-ee/pyq-patterns.md": {
+      "sha256": "3bc6826b37075b22e8a4e9ee9138a46c556461487214ea9ee6b70054b067073e",
+      "sources": [
+        "exam_pack:ese-ee"
+      ]
+    },
+    "strategy/gate-ee/pyq-patterns.md": {
+      "sha256": "e33c284c32d276562ec81e96da4c45e72d816766634160536a7dd9b8972fed40",
+      "sources": [
+        "exam_pack:gate-ee"
+      ]
+    }
+  }
+}

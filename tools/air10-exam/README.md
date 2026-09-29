@@ -168,7 +168,7 @@ Every question carries a `provenance` field:
 
 ## License
 
-- **Code**: MIT License (see `LICENSE.md`)
+- **Code**: AGPL-3.0 (see `../../LICENSE.md`); content CC BY-NC-SA 4.0, free for every student
 - **Text/Data**: CC BY 4.0 — provenance field mandatory
 
 ## Contributing

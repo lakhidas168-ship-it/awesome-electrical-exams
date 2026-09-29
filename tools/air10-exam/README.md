@@ -7,7 +7,7 @@ GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs.
 
 | Tool | Purpose |
 |------|---------|
-| `exam_search` | Search hacks, formulas, questions, 763K+ timestamped lecture segments, notes, NotebookLM sources |
+| `exam_search` | Search hacks, formulas, questions, notes, NotebookLM sources, and any lecture transcripts you have the right to use |
 | `exam_next` | What to study next: FSRS memory decay × exam weightage × days left |
 | `exam_practice` | Question → answer (auto-checked, FSRS-scheduled, mistakes logged) |
 | `exam_solve` | 16 exact EE solvers: tf, margins, eigen, laplace_inv, rlc, vr, phasor, linsolve, three_phase, swing, eac, powerflow, per_unit, netlist, control, logic, twoport |
@@ -51,11 +51,10 @@ The open-source code **does not include** any databases, models, or personal dat
 | `AIR10_EXAM_Q_TOP100` | SSC JE Top 100 JSON | `~/data/ssc_je_top100.json` |
 | `AIR10_EXAM_Q_COLLECTED` | Collected PYQs (provenance: pyq_collected) | `~/data/pyq_collected.sqlite` |
 | `AIR10_EXAM_Q_QUIZ` | Practice quiz banks | `~/data/quiz.sqlite` |
-| `AIR10_EXAM_VAULT` | Unified transcript vault (763K segments) | `~/data/transcript_vault.sqlite` |
-| `AIR10_EXAM_LIBRARY` | Teacher library (50K+ transcripts) | `~/data/teacher_library.sqlite` |
+| `AIR10_EXAM_VAULT` | Local transcript vault (optional; only lectures you have the right to use) | `~/data/transcript_vault.sqlite` |
+| `AIR10_EXAM_LIBRARY` | Local teacher library (optional; same rule) | `~/data/teacher_library.sqlite` |
 | `AIR10_EXAM_NLM_CATALOG` | NotebookLM catalog (320 notebooks) | `~/data/nlm_catalog.sqlite` |
 | `AIR10_EXAM_LIBRARY_TREE` | AIR10_LIBRARY lecture folders | `~/AIR10_LIBRARY` |
-| `AIR10_EXAM_FLASHRANK` | FlashRank model directory | `~/models/flashrank` |
 | `AIR10_EXAM_FLASHRANK` | FlashRank model directory | `~/models/flashrank` |
 
 ### Public Data Sources

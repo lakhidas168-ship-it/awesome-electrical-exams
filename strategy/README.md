@@ -9,4 +9,4 @@ Our own analysis from official papers and the exam packs. No coaching material i
 
 The project's topper-copy citation index covers **UPSC Civil Services Mains** (see the sibling repo `awesome-upsc-cse`). There is no comparable public Electrical-Engineering topper answer-booklet archive, so this repo carries no `toppers/` citations rather than inventing an empty one.
 
-_Generated 2026-09-30._
+_Generated 2026-10-01._

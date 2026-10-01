@@ -7,7 +7,7 @@ GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs.
 
 | Tool | Purpose |
 |------|---------|
-| `exam_search` | Search hacks, formulas, questions, 763K+ timestamped lecture segments, notes, NotebookLM sources |
+| `exam_search` | Search hacks, formulas, questions, notes, NotebookLM sources, and any lecture transcripts you have the right to use |
 | `exam_next` | What to study next: FSRS memory decay × exam weightage × days left |
 | `exam_practice` | Question → answer (auto-checked, FSRS-scheduled, mistakes logged) |
 | `exam_solve` | 16 exact EE solvers: tf, margins, eigen, laplace_inv, rlc, vr, phasor, linsolve, three_phase, swing, eac, powerflow, per_unit, netlist, control, logic, twoport |
@@ -21,8 +21,8 @@ GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs.
 git clone https://github.com/lakhidas168-ship-it/awesome-electrical-exams
 cd awesome-electrical-exams/tools/air10-exam
 
-# Install dependencies
-pip install -e .[dev]
+# Install dependencies (add ,solvers for the netlist/control/power-flow solvers)
+pip install -e '.[dev]'
 
 # Set up your data paths (see "Building Your Index" below)
 export AIR10_EXAM_HOME=~/.air10_exam_data
@@ -51,11 +51,10 @@ The open-source code **does not include** any databases, models, or personal dat
 | `AIR10_EXAM_Q_TOP100` | SSC JE Top 100 JSON | `~/data/ssc_je_top100.json` |
 | `AIR10_EXAM_Q_COLLECTED` | Collected PYQs (provenance: pyq_collected) | `~/data/pyq_collected.sqlite` |
 | `AIR10_EXAM_Q_QUIZ` | Practice quiz banks | `~/data/quiz.sqlite` |
-| `AIR10_EXAM_VAULT` | Unified transcript vault (763K segments) | `~/data/transcript_vault.sqlite` |
-| `AIR10_EXAM_LIBRARY` | Teacher library (50K+ transcripts) | `~/data/teacher_library.sqlite` |
+| `AIR10_EXAM_VAULT` | Local transcript vault (optional; only lectures you have the right to use) | `~/data/transcript_vault.sqlite` |
+| `AIR10_EXAM_LIBRARY` | Local teacher library (optional; same rule) | `~/data/teacher_library.sqlite` |
 | `AIR10_EXAM_NLM_CATALOG` | NotebookLM catalog (320 notebooks) | `~/data/nlm_catalog.sqlite` |
 | `AIR10_EXAM_LIBRARY_TREE` | AIR10_LIBRARY lecture folders | `~/AIR10_LIBRARY` |
-| `AIR10_EXAM_FLASHRANK` | FlashRank model directory | `~/models/flashrank` |
 | `AIR10_EXAM_FLASHRANK` | FlashRank model directory | `~/models/flashrank` |
 
 ### Public Data Sources
@@ -168,7 +167,7 @@ Every question carries a `provenance` field:
 
 ## License
 
-- **Code**: MIT License (see `LICENSE.md`)
+- **Code**: AGPL-3.0 (see `../../LICENSE.md`); content CC BY-NC-SA 4.0, free for every student
 - **Text/Data**: CC BY 4.0 — provenance field mandatory
 
 ## Contributing
@@ -183,4 +182,4 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md). In short:
 
 - [awesome-indian-exams](https://github.com/lakhidas168-ship-it/awesome-indian-exams) — 118 exams, 33 shared modules
 - [awesome-upsc-cse](https://github.com/lakhidas168-ship-it/awesome-upsc-cse) — UPSC CSE focused
-- [sovereign-study-commons-india](https://github.com/lakhidas168-ship-it/sovereign-study-commons-india) — Reference RAG implementation
+- sovereign-study-commons-india — reference RAG implementation (not public yet)

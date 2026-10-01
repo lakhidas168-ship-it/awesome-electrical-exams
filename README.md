@@ -101,7 +101,7 @@ Details: [resources/one-track-plan.md](resources/one-track-plan.md).
 
 | Tool | Description | License |
 |------|-------------|---------|
-| [tools/air10-exam](tools/air10-exam) | MCP server + CLI for EE exam study: question search, what-to-study-next, practice with auto-check, exact EE solvers, exam pattern radar. Ships code only — you build your own index from public sources. | MIT |
+| [tools/air10-exam](tools/air10-exam) | MCP server + CLI for EE exam study: question search, what-to-study-next, practice with auto-check, exact EE solvers, exam pattern radar. Ships code only — you build your own index from public sources. | AGPL-3.0 |
 
 ```bash
 # Enter the tool directory
@@ -139,8 +139,8 @@ air10-exam serve
 
 | Content type | License |
 |--------------|---------|
-| Code (`tools/`) | [MIT](LICENSE.md) |
-| Text (README, docs, resources) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Code (`tools/`) | [AGPL-3.0](LICENSE.md) |
+| Text (README, docs, resources) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/): free for every student, no commercial use |
 
 ## 🤝 Contributing
 

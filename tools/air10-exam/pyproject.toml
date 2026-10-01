@@ -7,12 +7,13 @@ name = "air10-exam"
 version = "0.1.0"
 description = "One MCP for all Electrical Engineering competitive exams in India (GATE EE, UPSC ESE, SSC JE, RRB JE, State AE/JE, PSUs)"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "AGPL-3.0-or-later"}
 authors = [{name = "Rajon Das"}]
 requires-python = ">=3.11"
 dependencies = [
     "mcp>=1.0.0",
     "numpy>=1.26.0",
+    "pint>=0.23",
     "scipy>=1.12.0",
     "sympy>=1.12.0",
     "pandas>=2.1.0",

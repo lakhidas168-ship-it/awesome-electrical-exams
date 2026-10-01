@@ -1,0 +1,43 @@
+name: Task feeder checks
+on:
+  pull_request:
+    paths:
+      - 'tools/task-feeder/**'
+      - 'research/2026-10-01/**'
+      - '.github/workflows/task-feeder.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/task-feeder/**'
+      - 'research/2026-10-01/**'
+      - '.github/workflows/task-feeder.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  control-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11'
+      - name: Completion, dependency and concurrent queue checks
+        run: python3 tools/task-feeder/test_feed_frogs.py
+      - name: Public research shape and date checks
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          base = Path('research/2026-10-01')
+          rows = [json.loads(line) for line in (base/'insights.jsonl').open()]
+          sources = [json.loads(line) for line in (base/'source-candidates.jsonl').open()]
+          assert len(rows) == len({row['id'] for row in rows}) == 100
+          assert len(sources) == len({row['repository'] for row in sources}) == 30
+          assert all('2026-09-01' <= row['source_date'][:10] <= '2026-10-01' for row in rows + sources)
+          assert all('evidence_file' not in row and 'evidence_pointer' not in row for row in rows + sources)
+          print('100 dated research entries; 30 source candidates; private receipt fields excluded.')
+          PY
